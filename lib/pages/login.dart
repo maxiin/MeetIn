@@ -38,66 +38,72 @@ class LoginState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            child: TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              validator: validateEmail,
-                              decoration: new InputDecoration(
-                                border: new OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(
-                                    const Radius.circular(10.0),
-                                  ),
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            validator: validateEmail,
+                            decoration: new InputDecoration(
+                              border: new OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(10.0),
                                 ),
-                                filled: true,
-                                hintStyle: new TextStyle(color: Colors.grey[800]),
-                                labelText: 'Email',
-                                hintText: 'jon@doe.com',
-                                fillColor: Colors.white70,
-                                suffixIcon:  IconButton(
-                                  onPressed: _toggle,
-                                  icon: Icon(Icons.remove_red_eye),
-                                ),
+                              ),
+                              filled: true,
+                              hintStyle: new TextStyle(color: Colors.grey[800]),
+                              labelText: 'Email',
+                              hintText: 'jon@doe.com',
+                              fillColor: Colors.white70,
+                              suffixIcon:  IconButton(
+                                onPressed: _toggle,
+                                icon: Icon(Icons.remove_red_eye),
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16.0),
-                            child: TextFormField(
-                              obscureText: _obscureText,
-                              validator: (pass) => lengthValidator(pass, 8, null),
-                              decoration: new InputDecoration(
-                                border: new OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(
-                                    const Radius.circular(10.0),
-                                  ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          child: TextFormField(
+                            obscureText: _obscureText,
+                            validator: (pass) => lengthValidator(pass, 8, null),
+                            decoration: new InputDecoration(
+                              border: new OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(10.0),
                                 ),
-                                filled: true,
-                                hintStyle: new TextStyle(color: Colors.grey[800]),
-                                labelText: 'Password',
-                                fillColor: Colors.white70,
-                                suffixIcon:  IconButton(
-                                  onPressed: _toggle,
-                                  icon: Icon(Icons.remove_red_eye),
-                                ),
+                              ),
+                              filled: true,
+                              hintStyle: new TextStyle(color: Colors.grey[800]),
+                              labelText: 'Password',
+                              fillColor: Colors.white70,
+                              suffixIcon:  IconButton(
+                                onPressed: _toggle,
+                                icon: Icon(Icons.remove_red_eye),
                               ),
                             ),
                           ),
-                        ]
-                      ),
+                        ),
+                      ]
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 16.0),
-                      child: RaisedButton(
-                        onPressed: () {
-                          if (form.currentState.validate()) {
-                            Scaffold.of(ctx)
-                              .showSnackBar(SnackBar(content: Text('Processing Data')));
-                          }
-                        },
-                        child: Text('Submit'),
-                      ),
-                    ),
+                      child: OutlineButton(
+                        child: new Text("Button text"),
+                        onPressed: (){},
+                        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                        borderSide: BorderSide(color: Colors.pink),
+                      )
+                      // child: RaisedButton(
+                      //   onPressed: () {
+                      //     if (form.currentState.validate()) {
+                      //       Scaffold.of(ctx)
+                      //         .showSnackBar(SnackBar(content: Text('Processing Data')));
+                      //     }
+                      //   },
+                      //   child: Text('Submit'),
+                      // ),
+                    )
                   ],
                 ),
               ),
