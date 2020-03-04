@@ -18,52 +18,88 @@ class LoginState extends State<LoginPage> {
   @override
   Widget build(BuildContext ctx) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Login"),
-      ),
+      // appBar: AppBar(
+      //   title: Text("Login"),
+      // ),
       body: Padding(
         padding: EdgeInsets.all(8),
         child: Column(
           children: <Widget>[
-            Form(
-              key: form,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    validator: validateEmail,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                    ),
-                  ),
-                  TextFormField(
-                    obscureText: _obscureText,
-                    validator: (pass) => lengthValidator(pass, 8, null),
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      suffixIcon: Padding(
-                        padding: EdgeInsets.only(top: 15.0),
-                        child: IconButton(
-                          onPressed: _toggle,
-                          icon: Icon(Icons.remove_red_eye),
-                        ),
+            Expanded(
+              flex: 2,
+              child: Center(
+                child: Image.asset('assets/images/logo.png')),
+            ),
+            Expanded(
+              flex: 2,
+              child: Form(
+                key: form,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16.0),
+                            child: TextFormField(
+                              keyboardType: TextInputType.emailAddress,
+                              validator: validateEmail,
+                              decoration: new InputDecoration(
+                                border: new OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(
+                                    const Radius.circular(10.0),
+                                  ),
+                                ),
+                                filled: true,
+                                hintStyle: new TextStyle(color: Colors.grey[800]),
+                                labelText: 'Email',
+                                hintText: 'jon@doe.com',
+                                fillColor: Colors.white70,
+                                suffixIcon:  IconButton(
+                                  onPressed: _toggle,
+                                  icon: Icon(Icons.remove_red_eye),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16.0),
+                            child: TextFormField(
+                              obscureText: _obscureText,
+                              validator: (pass) => lengthValidator(pass, 8, null),
+                              decoration: new InputDecoration(
+                                border: new OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(
+                                    const Radius.circular(10.0),
+                                  ),
+                                ),
+                                filled: true,
+                                hintStyle: new TextStyle(color: Colors.grey[800]),
+                                labelText: 'Password',
+                                fillColor: Colors.white70,
+                                suffixIcon:  IconButton(
+                                  onPressed: _toggle,
+                                  icon: Icon(Icons.remove_red_eye),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ]
+                      ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16.0),
+                      child: RaisedButton(
+                        onPressed: () {
+                          if (form.currentState.validate()) {
+                            Scaffold.of(ctx)
+                              .showSnackBar(SnackBar(content: Text('Processing Data')));
+                          }
+                        },
+                        child: Text('Submit'),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: RaisedButton(
-                      onPressed: () {
-                        if (form.currentState.validate()) {
-                          Scaffold.of(ctx)
-                            .showSnackBar(SnackBar(content: Text('Processing Data')));
-                        }
-                      },
-                      child: Text('Submit'),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],

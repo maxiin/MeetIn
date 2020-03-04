@@ -30,8 +30,13 @@ class MyApp extends StatelessWidget {
     return FutureBuilder(
       future: token(),
       builder: (BuildContext ctx, AsyncSnapshot<String> snapshot) {
+        final double statusBarHeight = MediaQuery.of(ctx).padding.top;
+
         if (!snapshot.data.isNotEmpty) {
-          return LoginPage();
+          return Padding(
+            padding: new EdgeInsets.only(top: statusBarHeight),
+            child: LoginPage(),
+          );
         } else {
           return MyHomePage(title: "Main");
         }
