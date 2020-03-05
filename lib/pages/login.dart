@@ -1,3 +1,4 @@
+import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/validation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +18,8 @@ class LoginState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext ctx) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Login"),
-      // ),
-      body: Padding(
+    return Container(
+      child: Padding(
         padding: EdgeInsets.all(8),
         child: Column(
           children: <Widget>[
@@ -45,20 +43,22 @@ class LoginState extends State<LoginPage> {
                             keyboardType: TextInputType.emailAddress,
                             validator: validateEmail,
                             decoration: new InputDecoration(
+                              errorStyle: TextStyle(
+                                color: errorColor
+                              ),
+                              errorBorder: new OutlineInputBorder(
+                                borderSide: BorderSide(color: errorColor)
+                              ),
                               border: new OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
                                   const Radius.circular(10.0),
                                 ),
                               ),
                               filled: true,
-                              hintStyle: new TextStyle(color: Colors.grey[800]),
+                              hintStyle: new TextStyle(color: Colors.grey[600]),
                               labelText: 'Email',
                               hintText: 'jon@doe.com',
                               fillColor: Colors.white70,
-                              suffixIcon:  IconButton(
-                                onPressed: _toggle,
-                                icon: Icon(Icons.remove_red_eye),
-                              ),
                             ),
                           ),
                         ),
@@ -68,13 +68,18 @@ class LoginState extends State<LoginPage> {
                             obscureText: _obscureText,
                             validator: (pass) => lengthValidator(pass, 8, null),
                             decoration: new InputDecoration(
+                              errorStyle: TextStyle(
+                                color: errorColor
+                              ),
+                              errorBorder: new OutlineInputBorder(
+                                borderSide: BorderSide(color: errorColor)
+                              ),
                               border: new OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
                                   const Radius.circular(10.0),
                                 ),
                               ),
                               filled: true,
-                              hintStyle: new TextStyle(color: Colors.grey[800]),
                               labelText: 'Password',
                               fillColor: Colors.white70,
                               suffixIcon:  IconButton(
@@ -86,24 +91,23 @@ class LoginState extends State<LoginPage> {
                         ),
                       ]
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.0),
-                      child: OutlineButton(
-                        child: new Text("Button text"),
-                        onPressed: (){},
-                        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                        borderSide: BorderSide(color: Colors.pink),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        child: OutlineButton(
+                          child: new Text("Button text"),
+                          onPressed: () {
+                            if (form.currentState.validate()) {
+                              Scaffold.of(ctx)
+                                .showSnackBar(SnackBar(content: Text('Submit')));
+                            }
+                          },
+                          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                          borderSide: BorderSide(color: primaryColor),
+                        )
                       )
-                      // child: RaisedButton(
-                      //   onPressed: () {
-                      //     if (form.currentState.validate()) {
-                      //       Scaffold.of(ctx)
-                      //         .showSnackBar(SnackBar(content: Text('Processing Data')));
-                      //     }
-                      //   },
-                      //   child: Text('Submit'),
-                      // ),
-                    )
+                    ),
                   ],
                 ),
               ),

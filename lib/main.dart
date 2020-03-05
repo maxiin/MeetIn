@@ -17,10 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: primaryColor,
+        primarySwatch: primaryMaterialColor,
       ),
       home: new Scaffold(
-        backgroundColor: Colors.grey,
         body: this.logedInRedirect(),
       )
     );

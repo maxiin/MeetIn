@@ -13,4 +13,6 @@ Map<int, Color> swatch = {
   900:Color.fromRGBO(79,37,37, 1),
 };
 
-MaterialColor primaryColor = new MaterialColor(0xffc95f5f, swatch);
+MaterialColor primaryMaterialColor = new MaterialColor(0xffc95f5f, swatch);
+Color primaryColor = new Color(0xffc95f5f);
+Color errorColor = new Color(0xffc9c95f);
