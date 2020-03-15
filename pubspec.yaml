@@ -27,6 +27,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   shared_preferences: ^0.5.6
   flutter_svg:
+  rxdart:
+  intl:
 
 dev_dependencies:
   flutter_test:

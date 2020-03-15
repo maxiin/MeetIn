@@ -1,9 +1,10 @@
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'dashboard.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage() : super();
@@ -27,20 +28,8 @@ class LoginState extends State<LoginPage> {
           height: 44,
           color: primaryColor,
         ),
-        Text('Meet',
-          style: TextStyle(
-            color: primaryColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 32
-          ),
-        ),
-        Text('In',
-          style: TextStyle(
-            color: secondaryColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 32
-          ),
-        ),
+        TitleText('Meet', color: primaryColor),
+        TitleText('In', color: secondaryColor),
       ],
     );
 
@@ -50,23 +39,12 @@ class LoginState extends State<LoginPage> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-              child: Text('Welcome!',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.left,
-              ),
+              child: TitleText('Welcome!'),
             ),
           ],
         ),
-        Text('MeetIn is the brand new online event app where you can invite friends and meet new people online!',
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.black54,
-          ),
-          maxLines: 5,
-          textAlign: TextAlign.left,
+        DescriptionText('MeetIn is the brand new online event app where you can invite friends and meet new people online!',
+          color: Colors.black54
         ),
       ],
     );
@@ -75,14 +53,14 @@ class LoginState extends State<LoginPage> {
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       validator: validateEmail,
-      decoration: buttonDecoration('Email'),
+      decoration: inputStyle('Email'),
     );
 
     final password = TextFormField(
       autofocus: false,
       obscureText: _obscureText,
       validator: (pass) => lengthValidator(pass, 8, null),
-      decoration: buttonPasswordDecoration('Password', _toggle),
+      decoration: passwordInputStyle('Password', _toggle),
     );
 
     final loginButton = Padding(
@@ -92,14 +70,15 @@ class LoginState extends State<LoginPage> {
           borderRadius: BorderRadius.circular(24),
         ),
         onPressed: () {
-          if (form.currentState.validate()) {
-            Scaffold.of(ctx)
-              .showSnackBar(SnackBar(content: Text('Submit')));
-          }
+          // if (form.currentState.validate()) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardPage()));
+          // }
         },
         padding: EdgeInsets.all(12),
         color: primaryColor,
-        child: Text('Log In', style: TextStyle(color: Colors.white)),
+        child: ButtonText('Log In'),
       ),
     );
 
@@ -146,7 +125,13 @@ class LoginState extends State<LoginPage> {
     });
   }
 
-  login() {
-    
+  Future login(context) async {
+    return Future.delayed(Duration(seconds: 10)).then((context) => {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardPage()),
+        )
+      }
+    );
   }
 }
