@@ -29,6 +29,8 @@ dependencies:
   flutter_svg:
   rxdart:
   intl:
+  build_runner:
+  build_web_compilers:
 
 dev_dependencies:
   flutter_test:
