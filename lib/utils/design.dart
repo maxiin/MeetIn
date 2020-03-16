@@ -30,6 +30,7 @@ class TitleText extends StatelessWidget {
         fontWeight: titleWeight,
         fontSize: titleSize
       ),
+      textAlign: TextAlign.start,
     );
   }
 }
@@ -68,6 +69,7 @@ class ClearText extends StatelessWidget {
         fontWeight: descWeight,
         fontSize: textSize
       ),
+      textAlign: TextAlign.left,
     );
   }
 }
@@ -106,7 +108,7 @@ class ButtonText extends StatelessWidget {
   }
 }
 
-InputDecoration inputStyle(String hint) {
+InputDecoration inputStyle({@required String hint}) {
   return InputDecoration(
     hintText: hint,
     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -126,7 +128,7 @@ InputDecoration inputStyle(String hint) {
   );
 }
 
-InputDecoration passwordInputStyle(String hint, void Function() toggle) {
+InputDecoration passwordInputStyle({@required String hint, @required void Function() toggle}) {
   return InputDecoration(
     hintText: 'Password',
     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),

@@ -49,18 +49,18 @@ class LoginState extends State<LoginPage> {
       ],
     );
 
-    final email = TextFormField(
+    final emailInput = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       validator: validateEmail,
-      decoration: inputStyle('Email'),
+      decoration: inputStyle(hint: 'Email'),
     );
 
-    final password = TextFormField(
+    final passwordInput = TextFormField(
       autofocus: false,
       obscureText: _obscureText,
       validator: (pass) => lengthValidator(pass, 8, null),
-      decoration: passwordInputStyle('Password', _toggle),
+      decoration: passwordInputStyle(hint: 'Password', toggle: _toggle),
     );
 
     final loginButton = Padding(
@@ -104,9 +104,9 @@ class LoginState extends State<LoginPage> {
               key: form,
               child: Column(
                 children: <Widget>[
-                  email,
+                  emailInput,
                   SizedBox(height: 8.0),
-                  password,
+                  passwordInput,
                   SizedBox(height: 16.0),
                   loginButton,
                 ],

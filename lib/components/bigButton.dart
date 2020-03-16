@@ -5,8 +5,9 @@ class BigButton extends StatelessWidget {
   final String title;
   final String description;
   final Color color;
+  final Function onPressed;
 
-  BigButton({@required this.title, @required this.description, @required this.color});
+  BigButton({@required this.title, @required this.description, @required this.color, @required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class BigButton extends StatelessWidget {
       height: bigButton,
       width: double.infinity,
       child: FlatButton(
-        onPressed: () {},
+        onPressed: onPressed,
         child: Container(
           padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
           child: Row(

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:events_app/components/bigButton.dart';
 import 'package:events_app/components/eventCard.dart';
 import 'package:events_app/entities/event.dart';
+import 'package:events_app/pages/createEvent.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
@@ -57,13 +58,11 @@ class DashboardState extends State<DashboardPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           TitleText('Upcoming Events'),
-          CircleAvatar(
-            radius: 20,
-            backgroundImage: NetworkImage(photo),
-            child: FlatButton(
-              onPressed: () {},
-              child: Text('data'),
-            ),
+          FloatingActionButton(
+            onPressed: () {},
+            child: CircleAvatar(backgroundImage: NetworkImage(photo)),
+            // shape: borderRadius,
+            mini: true,
           ),
         ],
       ),
@@ -141,30 +140,43 @@ class DashboardState extends State<DashboardPage> {
             child: eventList,
           ),
           hostingHeader,
-          Container(
-            height: 230,
-            margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-            child: eventList,
+          Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: ClearText('You are not hosting any event yet'),
           ),
+          // Container(
+          //   height: 230,
+          //   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+          //   child: eventList,
+          // ),
           SizedBox(height: 24),
-          BigButton(title: 'Create Public Events', description: 'Anyone can see the event and search for it.', color: primaryColor),
+          BigButton(
+            title: 'Create Public Events',
+            description: 'Anyone can see the event and search for it.',
+            color: primaryColor,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CreateEvent()),
+              );
+            },
+          ),
           SizedBox(height: 20),
-          BigButton(title: 'Create Public Events', description: 'Anyone can see the event and search for it.', color: secondaryColor),
+          BigButton(
+            title: 'Create Public Events',
+            description: 'Anyone can see the event and search for it.',
+            color: secondaryColor,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CreateEvent()),
+              );
+            },
+          ),
           SizedBox(height: 20),
         ],
       ),
     );
   }
-
-  // updateEvents(List<Event> events) {
-  //   print('updating view');
-  //   setState(() {
-  //     print('set state');
-  //     _availableEvents.add(new Text('data'));
-  //     _availableEvents.addAll(events.map((value) => new DailyEvent(event: value, open: () => {})));
-  //     print(_availableEvents);
-  //     print('view Updated');
-  //   });
-  // }
 
 }
