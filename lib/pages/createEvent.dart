@@ -59,16 +59,10 @@ class CreateEvent extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        onPressed: () {
-          // if (form.currentState.validate()) {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => DashboardPage()));
-          // }
-        },
+        onPressed: () {},
         padding: EdgeInsets.all(12),
         color: primaryColor,
-        child: ButtonText('Log In'),
+        child: ButtonText('Save'),
       ),
     );
 
@@ -91,8 +85,8 @@ class CreateEvent extends StatelessWidget {
                 dateHeader,
                 Row(
                   children: <Widget>[
-                    DateCard(date: DateTime.now(), onPressed: () {}),
-                    // BigButton(title: '', color: secondaryColor, description: '', onPressed: () {},)
+                    DateCard(date: DateTime.now(), onPressed: null, showHour: true),
+                    Expanded(child: BigButton(title: 'Change Date', color: secondaryColor, description: 'All day events available', onPressed: () {},))
                   ],
                 ),
                 SizedBox(height: 16.0),
