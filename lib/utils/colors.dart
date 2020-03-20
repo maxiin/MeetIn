@@ -17,3 +17,4 @@ MaterialColor primaryMaterialColor = new MaterialColor(0xffff808b, swatch);
 Color primaryColor = new Color(0xffff808b);
 Color secondaryColor = new Color(0xff7a4170);
 Color errorColor = new Color(0xffc9c95f);
+Color tint = new Color(0x88000000);

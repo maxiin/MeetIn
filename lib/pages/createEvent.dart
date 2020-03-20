@@ -1,5 +1,6 @@
 import 'package:events_app/components/bigButton.dart';
 import 'package:events_app/components/dateCard.dart';
+import 'package:events_app/components/selectImg.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
@@ -30,6 +31,18 @@ class CreateEvent extends StatelessWidget {
       ],
     );
 
+    final imageHeader = Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(bottom: 8),
+      child: TitleText('Logo!'),
+    );
+
+    final infoHeader = Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(bottom: 8),
+      child: TitleText('Infos ==>'),
+    );
+
     final nameInput = Container(
       margin: EdgeInsets.only(bottom: 16),
       child: TextFormField(
@@ -51,6 +64,13 @@ class CreateEvent extends StatelessWidget {
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.only(bottom: 8),
       child: TitleText('When?'),
+    );
+
+    final dateInput = Row(
+      children: <Widget>[
+        DateCard(date: DateTime.now(), onPressed: null, showHour: true),
+        Expanded(child: BigButton(title: 'Change Date', color: secondaryColor, description: 'All day events available', onPressed: () {},))
+      ],
     );
 
     final loginButton = Padding(
@@ -80,15 +100,31 @@ class CreateEvent extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[
+                imageHeader,
+                SelectImg(),
+                // Stack(
+                //   children: <Widget>[
+                //       Center(child: CircleAvatar(radius: 40, backgroundImage: NetworkImage(photo))),
+                //       Center(child: Container(
+                //         width: 80,
+                //         height: 80,
+                //         decoration: BoxDecoration(
+                //           color: tint,
+                //           borderRadius: BorderRadius.all(Radius.circular(40)),
+                //         ),
+                //         child: Center(
+                //           child: Icon(Icons.photo_camera, color: Colors.white)
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                SizedBox(height: 16.0),
+                infoHeader,
                 nameInput,
                 descriptionInput,
                 dateHeader,
-                Row(
-                  children: <Widget>[
-                    DateCard(date: DateTime.now(), onPressed: null, showHour: true),
-                    Expanded(child: BigButton(title: 'Change Date', color: secondaryColor, description: 'All day events available', onPressed: () {},))
-                  ],
-                ),
+                dateInput,
                 SizedBox(height: 16.0),
                 loginButton,
               ],

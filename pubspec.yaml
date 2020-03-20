@@ -31,6 +31,10 @@ dependencies:
   intl: ^0.16.1
   build_runner: ^1.8.0
   google_maps_flutter: ^0.5.24
+  camera:
+  path_provider:
+  path:
+  image-picker:
 
 dev_dependencies:
   flutter_test:
