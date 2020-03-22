@@ -4,8 +4,8 @@ import 'colors.dart';
 
 final cardWidth = 170.0;
 final cardHeight = 230.0;
-final buttonHeight = 40.0;
-final bigButton = 80.0;
+final buttonHeight = 44.0;
+final bigButton = 88.0;
 
 final titleSize = 32.0;
 final mainTextSize = 18.0;

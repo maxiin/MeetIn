@@ -73,7 +73,7 @@ class CreateEvent extends StatelessWidget {
       ],
     );
 
-    final loginButton = Padding(
+    final saveButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
@@ -102,23 +102,23 @@ class CreateEvent extends StatelessWidget {
               children: <Widget>[
                 imageHeader,
                 SelectImg(),
-                // Stack(
-                //   children: <Widget>[
-                //       Center(child: CircleAvatar(radius: 40, backgroundImage: NetworkImage(photo))),
-                //       Center(child: Container(
-                //         width: 80,
-                //         height: 80,
-                //         decoration: BoxDecoration(
-                //           color: tint,
-                //           borderRadius: BorderRadius.all(Radius.circular(40)),
-                //         ),
-                //         child: Center(
-                //           child: Icon(Icons.photo_camera, color: Colors.white)
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
+            //     // Stack(
+            //     //   children: <Widget>[
+            //     //       Center(child: CircleAvatar(radius: 40, backgroundImage: NetworkImage(photo))),
+            //     //       Center(child: Container(
+            //     //         width: 80,
+            //     //         height: 80,
+            //     //         decoration: BoxDecoration(
+            //     //           color: tint,
+            //     //           borderRadius: BorderRadius.all(Radius.circular(40)),
+            //     //         ),
+            //     //         child: Center(
+            //     //           child: Icon(Icons.photo_camera, color: Colors.white)
+            //     //         ),
+            //     //       ),
+            //     //     ),
+            //     //   ],
+            //     // ),
                 SizedBox(height: 16.0),
                 infoHeader,
                 nameInput,
@@ -126,7 +126,7 @@ class CreateEvent extends StatelessWidget {
                 dateHeader,
                 dateInput,
                 SizedBox(height: 16.0),
-                loginButton,
+                saveButton,
               ],
             ),
           ),

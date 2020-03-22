@@ -12,14 +12,14 @@ class BigButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+      margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
       color: color,
       height: bigButton,
       width: double.infinity,
       child: FlatButton(
         onPressed: onPressed,
         child: Container(
-          padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
+          padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
