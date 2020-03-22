@@ -8,7 +8,7 @@
 .buildlog/
 .history
 .svn/
-apikey.properties
+**/*/res/values/secrets.xml
 
 # IntelliJ related
 *.iml
