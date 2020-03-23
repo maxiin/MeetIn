@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:events_app/components/bigButton.dart';
 import 'package:events_app/components/dateCard.dart';
 import 'package:events_app/components/selectImg.dart';
@@ -5,13 +7,50 @@ import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
 final photo = 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t1.0-9/89514701_1083074872056637_4881692478974984192_n.jpg?_nc_cat=102&_nc_sid=85a577&_nc_ohc=HGG5G7r_uE4AX_Dl1tt&_nc_ht=scontent.fcgh8-1.fna&oh=63a685e168404f3872305ca3eeaa752f&oe=5E923DD9';
 
-class CreateEvent extends StatelessWidget {
+final CameraPosition kGooglePlex = CameraPosition(
+  target: LatLng(37.42796133580664, -122.085749655962),
+  zoom: 14.4746,
+);
+
+final CameraPosition kLake = CameraPosition(
+  bearing: 192.8334901395799,
+  target: LatLng(37.43296265331129, -122.08832357078792),
+  tilt: 59.440717697143555,
+  zoom: 19.151926040649414
+);
+
+class CreateEvent extends StatefulWidget {
   CreateEvent() : super();
 
+  @override
+  CreateEventState createState() => CreateEventState();
+}
+
+class CreateEventState extends State<CreateEvent> {
+  GoogleMapController _controller;
+  Completer<GoogleMapController> _mapsCompleter = Completer();
+  Position _position = Position(latitude: 0, longitude: 0);
   final form = GlobalKey<FormState>();
+
+  CreateEventState() {
+    loadLocation();
+  }
+
+  loadLocation() async {
+    Position newPosition = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      _position = newPosition;
+      _controller.animateCamera(
+        CameraUpdate.newLatLng(new LatLng(newPosition.latitude, newPosition.longitude))
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +125,41 @@ class CreateEvent extends StatelessWidget {
       ),
     );
 
+    final locationHeader = Container(
+      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.only(bottom: 8),
+      child: TitleText('So... here? :o'),
+    );
+
+    final mapCard = Container(
+      height: cardHeight,
+      child: GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(_position.latitude, _position.longitude),
+          zoom: 14.4746,
+        ),
+        onMapCreated: (GoogleMapController controller) {
+          _controller = controller;
+          if (!_mapsCompleter.isCompleted){
+            _mapsCompleter.complete(controller);
+          }
+        },
+        markers: Set<Marker>.of([new Marker(markerId: new MarkerId("center"), position: LatLng(_position.latitude, _position.longitude))]),
+      ),
+    );
+
+    final mapInput = BigButton(
+      title: 'Somewhere else',
+      color: secondaryColor,
+      description: 'Change Location',
+      onPressed: () {},
+      noMargin: true,
+    );
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
-        shrinkWrap: true,
         padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 44),
         children: <Widget>[
           header,
@@ -97,28 +167,10 @@ class CreateEvent extends StatelessWidget {
           SizedBox(height: 48.0),
           Form(
             key: form,
-            child: ListView(
-              shrinkWrap: true,
+            child: Column(
               children: <Widget>[
                 imageHeader,
                 SelectImg(),
-            //     // Stack(
-            //     //   children: <Widget>[
-            //     //       Center(child: CircleAvatar(radius: 40, backgroundImage: NetworkImage(photo))),
-            //     //       Center(child: Container(
-            //     //         width: 80,
-            //     //         height: 80,
-            //     //         decoration: BoxDecoration(
-            //     //           color: tint,
-            //     //           borderRadius: BorderRadius.all(Radius.circular(40)),
-            //     //         ),
-            //     //         child: Center(
-            //     //           child: Icon(Icons.photo_camera, color: Colors.white)
-            //     //         ),
-            //     //       ),
-            //     //     ),
-            //     //   ],
-            //     // ),
                 SizedBox(height: 16.0),
                 infoHeader,
                 nameInput,
@@ -126,6 +178,10 @@ class CreateEvent extends StatelessWidget {
                 dateHeader,
                 dateInput,
                 SizedBox(height: 16.0),
+                locationHeader,
+                mapCard,
+                SizedBox(height: 8.0),
+                mapInput,
                 saveButton,
               ],
             ),
