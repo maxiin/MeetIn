@@ -13,42 +13,14 @@ class BigButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Container(
-    //   margin: EdgeInsets.fromLTRB(noMargin ? 0 : 10, 0, 0, 0),
-    //   color: color,
-    //   height: bigButton,
-    //   width: double.infinity,
-    //   child: FlatButton(
-    //     onPressed: onPressed,
-    //     child: Container(
-    //       padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //         children: <Widget>[
-    //           Column(
-    //             mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: <Widget>[
-    //               MainText(title, color: Colors.white),
-    //               ClearText(description, color: Colors.white),
-    //             ]
-    //           ),
-    //           IconButton(icon: Icon(Icons.arrow_forward_ios, color: Colors.white), onPressed: () {}),
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
     return Container(
       margin: EdgeInsets.fromLTRB(noMargin ? 0 : 10, 0, 0, 0),
       color: color,
       height: bigButton,
       width: double.infinity,
-      child: Slidable(  
-        actionPane: SlidableBehindActionPane(),
-        actionExtentRatio: 1,
+      child: FlatButton(
+        onPressed: onPressed,
         child: Container(
-          color: color,
           padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,20 +37,6 @@ class BigButton extends StatelessWidget {
             ],
           ),
         ),
-        secondaryActions: <Widget>[
-          SlideAction(
-            closeOnTap: false,
-            child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.fromLTRB(10, 10, 10  , 10),
-              child: TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                autofocus: false,
-                decoration: inputStyle(hint: 'Email'),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

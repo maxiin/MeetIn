@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:events_app/components/bigButton.dart';
+import 'package:events_app/components/bigInput.dart';
 import 'package:events_app/components/dateCard.dart';
 import 'package:events_app/components/selectImg.dart';
 import 'package:events_app/utils/colors.dart';
@@ -149,12 +150,13 @@ class CreateEventState extends State<CreateEvent> {
       ),
     );
 
-    final mapInput = BigButton(
+    final mapInput = BigInput(
       title: 'Somewhere else',
       color: secondaryColor,
       description: 'Change Location',
-      onPressed: () {},
+      inputSubmit: (data) { print(data); },
       noMargin: true,
+      inputText: 'Endereço',
     );
 
     return Scaffold(
