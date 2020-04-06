@@ -1,6 +1,6 @@
 # MeetIn
 
-A new Flutter project.
+A new Flutter project
 
 # Design
 Since I'm not a designer and this project will not be a commercial piece I used some designs and will credit them here:
