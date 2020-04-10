@@ -155,10 +155,7 @@ class DashboardState extends State<DashboardPage> {
             description: 'Anyone can see the event and search for it.',
             color: primaryColor,
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CreateEvent()),
-              );
+              Navigator.of(context).pushNamed('/new');
             },
           ),
           SizedBox(height: 20),
@@ -167,10 +164,7 @@ class DashboardState extends State<DashboardPage> {
             description: 'Anyone can see the event and search for it.',
             color: secondaryColor,
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CreateEvent()),
-              );
+              Navigator.of(context).pushNamed('/new');
             },
           ),
           SizedBox(height: 20),

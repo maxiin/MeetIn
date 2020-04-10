@@ -81,7 +81,7 @@ class ActionState extends State<Action> {
               context: context,
               apiKey: "AIzaSyAGydxMpbwrdPyNoLd8ubt29ul-gGBEOBQ",
               mode: Mode.overlay, // Mode.fullscreen
-              // language: "pt",
+              language: "pt",
               // components: [new Component(Component.country, "fr")]
             );
             print(p);

@@ -1,4 +1,6 @@
 import 'package:events_app/pages/login.dart';
+import 'package:events_app/pages/dashboard.dart';
+import 'package:events_app/pages/createEvent.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,7 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: primaryMaterialColor,
       ),
-      home: LoginPage() 
+      home: LoginPage(),
+      routes: <String, WidgetBuilder> {
+        '/login': (BuildContext context) => new LoginPage(),
+        '/dash' : (BuildContext context) => new DashboardPage(),
+        '/new' : (BuildContext context) => new CreateEvent(),
+      },
     );
   }
 }
