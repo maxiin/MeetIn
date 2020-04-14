@@ -1,6 +1,7 @@
 # MeetIn
 
-A new Flutter project
+This is my event app where i try to test all native capabilities of flutter while learning it by myself.
+In the final version will be possible to create and join and view history of past events.
 
 # Design
 Since I'm not a designer and this project will not be a commercial piece I used some designs and will credit them here:
