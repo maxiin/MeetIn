@@ -1,6 +1,5 @@
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class BigButton extends StatelessWidget {
   final String title;

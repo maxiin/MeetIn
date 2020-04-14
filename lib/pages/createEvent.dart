@@ -8,11 +8,9 @@ import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-
-final photo = 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t1.0-9/89514701_1083074872056637_4881692478974984192_n.jpg?_nc_cat=102&_nc_sid=85a577&_nc_ohc=HGG5G7r_uE4AX_Dl1tt&_nc_ht=scontent.fcgh8-1.fna&oh=63a685e168404f3872305ca3eeaa752f&oe=5E923DD9';
 
 final CameraPosition kGooglePlex = CameraPosition(
   target: LatLng(37.42796133580664, -122.085749655962),
@@ -59,7 +57,7 @@ class CreateEventState extends State<CreateEvent> {
     final header = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        CircleAvatar(backgroundImage: NetworkImage(photo)),
+        CircleAvatar(radius: 30, child: SvgPicture.asset('assets/defaults/female-avatar.svg')),
         SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -3,17 +3,14 @@ import 'dart:math';
 import 'package:events_app/components/bigButton.dart';
 import 'package:events_app/components/eventCard.dart';
 import 'package:events_app/entities/event.dart';
-import 'package:events_app/pages/createEvent.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 import '../repository.dart';
 
-final photo = 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t1.0-9/89514701_1083074872056637_4881692478974984192_n.jpg?_nc_cat=102&_nc_sid=85a577&_nc_ohc=HGG5G7r_uE4AX_Dl1tt&_nc_ht=scontent.fcgh8-1.fna&oh=63a685e168404f3872305ca3eeaa752f&oe=5E923DD9';
 final weekdays = List.generate(7, (index) => index)
   .map((value) => DateFormat(DateFormat.WEEKDAY)
   .format(DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).add(Duration(days: value))))
@@ -60,8 +57,8 @@ class DashboardState extends State<DashboardPage> {
           TitleText('Upcoming Events'),
           FloatingActionButton(
             onPressed: () {},
-            child: CircleAvatar(backgroundImage: NetworkImage(photo)),
-            // shape: borderRadius,
+            child: SvgPicture.asset('assets/defaults/female-avatar.svg'),
+            shape: borderRadius,
             mini: true,
           ),
         ],

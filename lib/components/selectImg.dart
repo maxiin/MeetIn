@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:events_app/utils/colors.dart';
-import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
-
-final photo = 'https://scontent.fcgh8-1.fna.fbcdn.net/v/t1.0-9/89514701_1083074872056637_4881692478974984192_n.jpg?_nc_cat=102&_nc_sid=85a577&_nc_ohc=HGG5G7r_uE4AX_Dl1tt&_nc_ht=scontent.fcgh8-1.fna&oh=63a685e168404f3872305ca3eeaa752f&oe=5E923DD9';
 
 class SelectImg extends StatefulWidget {
   SelectImg() : super();
@@ -24,7 +22,7 @@ class SelectImgState extends State<SelectImg> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Center(child: CircleAvatar(radius: 40, backgroundImage: _picture == null ? NetworkImage(photo) : FileImage(_picture) )),
+        Center(child: CircleAvatar(radius: 40, child: _picture == null ? SvgPicture.asset('assets/defaults/female-avatar.svg') : FileImage(_picture) )),
         Center(child: Container(
           width: 80,
           height: 80,

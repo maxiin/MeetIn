@@ -3,8 +3,6 @@ import 'package:events_app/pages/dashboard.dart';
 import 'package:events_app/pages/createEvent.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MyApp());
 

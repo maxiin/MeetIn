@@ -1,7 +1,9 @@
 import 'package:events_app/utils/design.dart';
+import 'package:events_app/utils/secrets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:google_maps_webservice/places.dart';
 
 class BigInput extends StatelessWidget {
   final String title;
@@ -77,23 +79,20 @@ class ActionState extends State<Action> {
         Flexible(
           flex: 1,
           child: IconButton(icon: Icon(Icons.arrow_forward_ios), onPressed: () async{
-            var p = await PlacesAutocomplete.show(
-              context: context,
-              apiKey: "AIzaSyAGydxMpbwrdPyNoLd8ubt29ul-gGBEOBQ",
-              mode: Mode.overlay, // Mode.fullscreen
-              language: "pt",
-              // components: [new Component(Component.country, "fr")]
-            );
-            print(p);
-            // widget.submit(inputController.text);
-            // Slidable.of(context).close();
+            Prediction p =  await PlacesAutocomplete.show(
+                context: context,
+                apiKey: GMAPS_API_KEY,
+                mode: Mode.overlay,
+                language: "en",
+                // logo: Container(height: 300),
+                radius: 10000,
+                onError: (value) => print(value.toJson()),
+                )
+              .catchError((error) {
+              print(error);
+            });
           }),
         ),
-        // TextFormField(
-        //   keyboardType: TextInputType.emailAddress,
-        //   autofocus: false,
-        //   decoration: inputStyle(hint: 'Email'),
-        // ),
       ],
     );
   }
