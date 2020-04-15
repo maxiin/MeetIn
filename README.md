@@ -17,6 +17,10 @@ Login                      | Filled Login               | Dashboard             
 ![](./presentation/1.png)  |  ![](./presentation/2.png) | ![](./presentation/3.png) | ![](./presentation/4.png) | ![](./presentation/5.png)
 
 ## WIP
+## Building
+
+Before building the app, api keys need to be applied with `dart pre-build.dart` you will need a google api key (google maps + places api) the script can be seen [here](./pre-build.dart)
+
 ## Native functionalities i want to test
 
 - [x] geo
