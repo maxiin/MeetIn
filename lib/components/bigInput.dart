@@ -79,18 +79,7 @@ class ActionState extends State<Action> {
         Flexible(
           flex: 1,
           child: IconButton(icon: Icon(Icons.arrow_forward_ios), onPressed: () async{
-            Prediction p =  await PlacesAutocomplete.show(
-                context: context,
-                apiKey: GMAPS_API_KEY,
-                mode: Mode.overlay,
-                language: "en",
-                // logo: Container(height: 300),
-                radius: 10000,
-                onError: (value) => print(value.toJson()),
-                )
-              .catchError((error) {
-              print(error);
-            });
+            ///
           }),
         ),
       ],

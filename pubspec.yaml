@@ -66,6 +66,7 @@ flutter:
   assets:
    - assets/images/logo-dark.svg
    - assets/images/logo-white.svg
+   - assets/images/party.svg
    - assets/defaults/female-avatar.svg
    - assets/defaults/male-avatar.svg
   #  - images/a_dot_ham.jpeg

@@ -6,11 +6,14 @@ import 'package:events_app/components/dateCard.dart';
 import 'package:events_app/components/selectImg.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
+import 'package:events_app/utils/maps.dart';
 import 'package:events_app/utils/validation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_webservice/places.dart';
 
 final CameraPosition kGooglePlex = CameraPosition(
   target: LatLng(37.42796133580664, -122.085749655962),
@@ -33,6 +36,7 @@ class CreateEvent extends StatefulWidget {
 
 class CreateEventState extends State<CreateEvent> {
   GoogleMapController _controller;
+  Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
   Completer<GoogleMapController> _mapsCompleter = Completer();
   Position _position = Position(latitude: 0, longitude: 0);
   final form = GlobalKey<FormState>();
@@ -48,7 +52,16 @@ class CreateEventState extends State<CreateEvent> {
       _controller.animateCamera(
         CameraUpdate.newLatLng(new LatLng(newPosition.latitude, newPosition.longitude))
       );
+      _markers[new MarkerId('center')] = new Marker(markerId: new MarkerId("center"), position: LatLng(newPosition.latitude, newPosition.longitude));
     });
+  }
+
+  changeLocation(LatLng latLng) {
+    _position = new Position(latitude: latLng.latitude, longitude: latLng.longitude);
+    _markers[new MarkerId('center')] = new Marker(markerId: new MarkerId("center"), position: LatLng(latLng.latitude, latLng.longitude));
+    _controller.animateCamera(
+      CameraUpdate.newLatLng(latLng),
+    );
   }
 
   @override
@@ -144,17 +157,18 @@ class CreateEventState extends State<CreateEvent> {
             _mapsCompleter.complete(controller);
           }
         },
-        markers: Set<Marker>.of([new Marker(markerId: new MarkerId("center"), position: LatLng(_position.latitude, _position.longitude))]),
+        markers: Set<Marker>.of(_markers.values),
       ),
     );
 
-    final mapInput = BigInput(
+    final mapInput = BigButton(
       title: 'Somewhere else',
       color: secondaryColor,
       description: 'Change Location',
-      inputSubmit: (data) { print(data); },
+      onPressed: () { 
+        findPlace(context).then((value) => changeLocation(value));
+      },
       noMargin: true,
-      inputText: 'Endereço',
     );
 
     return Scaffold(

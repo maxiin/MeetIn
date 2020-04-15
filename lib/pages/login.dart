@@ -92,29 +92,40 @@ class LoginState extends State<LoginPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
-          children: <Widget>[
-            logo,
-            welcomeText,
-            SizedBox(height: 48.0),
-            Form(
-              key: form,
-              child: Column(
-                children: <Widget>[
-                  emailInput,
-                  SizedBox(height: 8.0),
-                  passwordInput,
-                  SizedBox(height: 16.0),
-                  loginButton,
-                ],
-              ),
+      body: Stack(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+            child: Opacity(
+              opacity: 0.2,
+              child: SvgPicture.asset('assets/images/party.svg', alignment: Alignment.topCenter)
             ),
-            forgotLabel
-          ],
-        ),
+          ),
+          Center(
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.only(left: 24.0, right: 24.0),
+              children: <Widget>[
+                logo,
+                welcomeText,
+                SizedBox(height: 48.0),
+                Form(
+                  key: form,
+                  child: Column(
+                    children: <Widget>[
+                      emailInput,
+                      SizedBox(height: 8.0),
+                      passwordInput,
+                      SizedBox(height: 16.0),
+                      loginButton,
+                    ],
+                  ),
+                ),
+                forgotLabel
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
