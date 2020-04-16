@@ -1,3 +1,4 @@
+import 'package:events_app/pages/event.dart';
 import 'package:events_app/pages/login.dart';
 import 'package:events_app/pages/dashboard.dart';
 import 'package:events_app/pages/createEvent.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         '/login': (BuildContext context) => new LoginPage(),
         '/dash' : (BuildContext context) => new DashboardPage(),
         '/new' : (BuildContext context) => new CreateEvent(),
+        '/event' : (BuildContext context) => new EventPage(),
       },
     );
   }

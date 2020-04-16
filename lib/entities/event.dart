@@ -1,20 +1,20 @@
 class Event {
-  final int id;
-  final DateTime date;
-  final String name;
-  final EventLocation location;
-  final EventStatus status;
+  int id;
+  DateTime date;
+  String name;
+  EventLocation location;
+  EventStatus status;
 
-  Event(this.id, this.date, this.name, this.location, this.status);
+  Event({this.id, this.date, this.name, this.location, this.status});
 }
 
 class EventLocation {
-  final double lng;
-  final double lat;
-  final String address;
-  final String name;
+  double lng;
+  double lat;
+  String address;
+  String name;
 
-  EventLocation(this.name, this.address, this.lat, this.lng);
+  EventLocation({this.name, this.address, this.lat, this.lng});
 }
 
 enum EventStatus {

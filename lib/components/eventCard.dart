@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DailyEvent extends StatelessWidget {
-  DailyEvent(this.event);
+  DailyEvent({this.event, this.open});
 
   final Event event;
-  final Function open = () {};
+  final Function open;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class DailyEvent extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24),
               ),
-              onPressed: () => {},
+              onPressed: open,
               padding: EdgeInsets.only(left: 24, top: 24, bottom: 24),
               color: primaryColor,
               child: Column(
