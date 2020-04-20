@@ -19,24 +19,24 @@ class DailyEvent extends StatelessWidget {
         Icon(
           Icons.access_time,
           size: textSize,
-          color: Colors.white,
+          color: clearColor,
         ),
         SizedBox(width: 8),
-        ClearText(formattedDate(), color: Colors.white),
+        ClearText(formattedDate(), color: clearColor),
       ],
     );
 
-    final title = MainText(event.name, color: Colors.white);
+    final title = MainText(event.name, color: clearColor);
 
     final location = Row(
       children: <Widget>[
         Icon(
           Icons.place,
           size: textSize,
-          color: Colors.white,
+          color: clearColor,
         ),
         SizedBox(width: 8),
-        ClearText(event.location.name, color: Colors.white),
+        ClearText(event.location.name, color: clearColor),
       ],
     );
 
@@ -54,7 +54,7 @@ class DailyEvent extends StatelessWidget {
       }
       return Icon(
         icon,
-        color: Colors.white,
+        color: clearColor,
         size: textSize,
       );
     };

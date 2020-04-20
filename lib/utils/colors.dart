@@ -18,3 +18,8 @@ Color primaryColor = new Color(0xffff808b);
 Color secondaryColor = new Color(0xff7a4170);
 Color errorColor = new Color(0xffc9c95f);
 Color tint = new Color(0x44000000);
+
+Color clearColor = Colors.white;
+Color clearTintColor = Colors.white70;
+Color darkColor = Colors.black54;
+Color backgroundColor = Colors.white;

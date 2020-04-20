@@ -19,11 +19,11 @@ class DateCard extends StatelessWidget {
     List<Widget> texts() {
       final list = new List<Widget>();
       list.addAll([
-        MainText(smallMon(), color: Colors.white),
-        TitleText(day(), color: Colors.white),
+        MainText(smallMon(), color: clearColor),
+        TitleText(day(), color: clearColor),
       ]);
       if (showHour) {
-        list.add(ClearText(time(), color: Colors.white));
+        list.add(ClearText(time(), color: clearColor));
       }
       return list;
     }

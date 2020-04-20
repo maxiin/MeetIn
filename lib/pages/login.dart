@@ -44,7 +44,7 @@ class LoginState extends State<LoginPage> {
           ],
         ),
         DescriptionText('MeetIn is the brand new online event app where you can invite friends and meet new people online!',
-          color: Colors.black54
+          color: darkColor
         ),
       ],
     );
@@ -85,13 +85,13 @@ class LoginState extends State<LoginPage> {
     final forgotLabel = FlatButton(
       child: Text(
         'Forgot password?',
-        style: TextStyle(color: Colors.black54),
+        style: TextStyle(color: darkColor),
       ),
       onPressed: () {},
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
       body: Stack(
         children: <Widget>[
           Padding(

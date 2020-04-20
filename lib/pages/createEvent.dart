@@ -172,7 +172,7 @@ class CreateEventState extends State<CreateEvent> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
       body: ListView(
         padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 44),
         children: <Widget>[

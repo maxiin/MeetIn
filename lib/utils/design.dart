@@ -18,7 +18,7 @@ final borderRadius = RoundedRectangleBorder(
 
 class TitleText extends StatelessWidget {
   final String text;
-  final Color color;
+  Color color = darkColor;
 
   TitleText(this.text,{this.color});
 
@@ -101,7 +101,7 @@ class ButtonText extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Text(text,
       style: TextStyle(
-        color: Colors.white,
+        color: clearColor,
         fontSize: textSize
       ),
     );
@@ -113,7 +113,7 @@ InputDecoration inputStyle({@required String hint}) {
     hintText: hint,
     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-    fillColor: Colors.white70,
+    fillColor: clearTintColor,
     errorStyle: TextStyle(
       color: secondaryColor
     ),
@@ -133,7 +133,7 @@ InputDecoration passwordInputStyle({@required String hint, @required void Functi
     hintText: 'Password',
     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-    fillColor: Colors.white70,
+    fillColor: clearTintColor,
     suffixIcon:  IconButton(
       onPressed: toggle,
       icon: Icon(Icons.remove_red_eye),

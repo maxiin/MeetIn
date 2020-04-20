@@ -101,7 +101,6 @@ class DashboardState extends State<DashboardPage> {
 
     final dayList = Container(
       height: buttonHeight,
-      // color: Colors.grey,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: createDayList(),
@@ -110,7 +109,6 @@ class DashboardState extends State<DashboardPage> {
 
     final eventList = Container(
       height: 80.0,
-      // color: Colors.grey,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: events.map((e) => DailyEvent(event: e, open: () {Navigator.of(context).pushNamed('/event');})).toList(),
@@ -123,7 +121,7 @@ class DashboardState extends State<DashboardPage> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[

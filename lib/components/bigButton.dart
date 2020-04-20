@@ -1,3 +1,4 @@
+import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
 
@@ -28,11 +29,11 @@ class BigButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  MainText(title, color: Colors.white),
-                  ClearText(description, color: Colors.white),
+                  MainText(title, color: clearColor),
+                  ClearText(description, color: clearColor),
                 ]
               ),
-              IconButton(icon: Icon(Icons.arrow_forward_ios, color: Colors.white), onPressed: () {}),
+              IconButton(icon: Icon(Icons.arrow_forward_ios, color: clearColor), onPressed: () {}),
             ],
           ),
         ),
