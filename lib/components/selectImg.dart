@@ -13,9 +13,11 @@ enum SelectType {
 }
 
 class SelectImg extends StatefulWidget {
-  SelectImg({this.type = SelectType.round}) : super();
+  SelectImg({this.type = SelectType.round, this.canEdit = false, this.clear = false}) : super();
 
   final SelectType type;
+  final bool canEdit;
+  final bool clear;
 
   @override
   SelectImgState createState() => SelectImgState();
@@ -50,25 +52,27 @@ class SelectImgState extends State<SelectImg> {
     final imgRatio = widget.type == SelectType.round ? CropAspectRatioPreset.square : CropAspectRatioPreset.ratio16x9;
 
     Color colorTint = widget.type == SelectType.round ? tintColor : clearBackTintColor;
-    if(_picture != null) {
+    if(_picture != null || !widget.canEdit || widget.clear) {
       colorTint = transparentColor;
     }
 
     final border = widget.type == SelectType.round ? BorderRadius.all(Radius.circular(40)) : null;
     final colorBtn = widget.type == SelectType.round ? primaryColor : clearColor;
 
-    final iconButton = IconButton(
+    final pickImg = () async{
+      var image = await ImagePicker.pickImage(
+        source: ImageSource.gallery,
+      );
+      image = await cropImage(image, defaultAspectRatio: imgRatio);
+      setState(() {
+        _picture = image;
+      });
+    };
+    final photoButton = IconButton(
       icon: Icon(Icons.photo_camera, color: colorBtn),
-      onPressed: () async{
-        var image = await ImagePicker.pickImage(
-          source: ImageSource.gallery,
-        );
-        image = await cropImage(image, defaultAspectRatio: imgRatio);
-        setState(() {
-          _picture = image;
-        });
-      }
+      onPressed: pickImg
     );
+    final iconButton = widget.canEdit ? photoButton : null;
 
     return Stack(
       children: <Widget>[
