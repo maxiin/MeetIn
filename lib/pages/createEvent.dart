@@ -184,7 +184,12 @@ class CreateEventState extends State<CreateEvent> {
             child: Column(
               children: <Widget>[
                 imageHeader,
-                SelectImg(),
+                Stack(
+                  children: <Widget>[
+                    SelectImg(type: SelectType.full),
+                    SelectImg(type: SelectType.round),
+                  ],
+                ),
                 SizedBox(height: 16.0),
                 infoHeader,
                 nameInput,
