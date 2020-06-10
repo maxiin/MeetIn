@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
+
 
 import 'dashboard.dart';
 
@@ -14,10 +18,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginState extends State<LoginPage> {
-  String email = "";
-  String password = "";
   bool _obscureText = true;
   final form = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext ctx) {
@@ -54,6 +58,7 @@ class LoginState extends State<LoginPage> {
       autofocus: false,
       validator: validateEmail,
       decoration: inputStyle(hint: 'Email'),
+      controller: _emailController,
     );
 
     final passwordInput = TextFormField(
@@ -61,6 +66,7 @@ class LoginState extends State<LoginPage> {
       obscureText: _obscureText,
       validator: (pass) => lengthValidator(pass, 8, null),
       decoration: passwordInputStyle(hint: 'Password', toggle: _toggle),
+      controller: _passwordController,
     );
 
     final loginButton = Padding(
@@ -69,12 +75,14 @@ class LoginState extends State<LoginPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        onPressed: () {
-          // if (form.currentState.validate()) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DashboardPage()));
-          // }
+        onPressed: () async {
+          if (form.currentState.validate()) {
+            final test = await http.post('http://localhost:3000/signup', body: {'email': _emailController.text, 'password': _passwordController.text});
+            log(test.body);
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => DashboardPage()));
+          }
         },
         padding: EdgeInsets.all(12),
         color: primaryColor,
