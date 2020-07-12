@@ -1,12 +1,12 @@
 import 'dart:developer';
 
+import 'package:events_app/services/auth.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
-
 
 import 'dashboard.dart';
 
@@ -28,7 +28,8 @@ class LoginState extends State<LoginPage> {
     final logo = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        SvgPicture.asset('assets/images/logo-dark.svg',
+        SvgPicture.asset(
+          'assets/images/logo-dark.svg',
           height: 44,
           color: primaryColor,
         ),
@@ -47,9 +48,9 @@ class LoginState extends State<LoginPage> {
             ),
           ],
         ),
-        DescriptionText('MeetIn is the brand new online event app where you can invite friends and meet new people online!',
-          color: darkColor
-        ),
+        DescriptionText(
+            'MeetIn is the brand new online event app where you can invite friends and meet new people online!',
+            color: darkColor),
       ],
     );
 
@@ -77,11 +78,13 @@ class LoginState extends State<LoginPage> {
         ),
         onPressed: () async {
           if (form.currentState.validate()) {
-            final test = await http.post('http://localhost:3000/signup', body: {'email': _emailController.text, 'password': _passwordController.text});
-            log(test.body);
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => DashboardPage()));
+            bool res = await AuthService.login(
+                _emailController.text, _passwordController.text,
+                context: ctx);
+            if (res) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DashboardPage()));
+            }
           }
         },
         padding: EdgeInsets.all(12),
@@ -105,9 +108,9 @@ class LoginState extends State<LoginPage> {
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
             child: Opacity(
-              opacity: 0.2,
-              child: SvgPicture.asset('assets/images/party.svg', alignment: Alignment.topCenter)
-            ),
+                opacity: 0.2,
+                child: SvgPicture.asset('assets/images/party.svg',
+                    alignment: Alignment.topCenter)),
           ),
           Center(
             child: ListView(
@@ -146,11 +149,10 @@ class LoginState extends State<LoginPage> {
 
   Future login(context) async {
     return Future.delayed(Duration(seconds: 10)).then((context) => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DashboardPage()),
-        )
-      }
-    );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => DashboardPage()),
+          )
+        });
   }
 }
