@@ -38,6 +38,20 @@ class LoginState extends State<LoginPage> {
       ],
     );
 
+    final background = Padding(
+      padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+      child: Opacity(
+          opacity: 0.2,
+          child: SizedBox(
+            // TODO needs fixing
+            // stackoverflow.com/questions/62257156
+            child: SvgPicture.asset('assets/images/party.svg',
+                alignment: Alignment.topCenter),
+            height: 300,
+            width: 1080,
+          )),
+    );
+
     final welcomeText = Column(
       children: <Widget>[
         Row(
@@ -105,13 +119,7 @@ class LoginState extends State<LoginPage> {
       backgroundColor: backgroundColor,
       body: Stack(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
-            child: Opacity(
-                opacity: 0.2,
-                child: SvgPicture.asset('assets/images/party.svg',
-                    alignment: Alignment.topCenter)),
-          ),
+          background,
           Center(
             child: ListView(
               shrinkWrap: true,
