@@ -1,16 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-//final test = await http.post('http://localhost:3000/signup', body: {'email': _emailController.text, 'password': _passwordController.text});
 import 'api.dart';
 
-class AuthService {
+class AuthService extends ApiServices {
   static Future<bool> login(String email, String password,
-      {BuildContext context}) async {
-    ApiServices.loading(context, true);
-    await Future.delayed(Duration(seconds: 3));
-    ApiServices.loading(context, false);
+      {BuildContext ctx}) async {
+    await ApiServices.post({email, password}, ctx: ctx);
 
     if (email.isNotEmpty && password.isNotEmpty) {
       return true;
