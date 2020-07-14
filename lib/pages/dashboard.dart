@@ -1,8 +1,11 @@
+import 'dart:async';
+import 'dart:developer';
 import 'dart:math';
 
 import 'package:events_app/components/bigButton.dart';
 import 'package:events_app/components/eventCard.dart';
 import 'package:events_app/entities/event.dart';
+import 'package:events_app/services/event.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +15,11 @@ import 'package:intl/intl.dart';
 import '../repository.dart';
 
 final weekdays = List.generate(7, (index) => index)
-  .map((value) => DateFormat(DateFormat.WEEKDAY)
-  .format(DateTime.now().subtract(Duration(days: DateTime.now().weekday - 1)).add(Duration(days: value))))
-  .toList();
-final events = [
+    .map((value) => DateFormat(DateFormat.WEEKDAY).format(DateTime.now()
+        .subtract(Duration(days: DateTime.now().weekday - 1))
+        .add(Duration(days: value))))
+    .toList();
+/* final events = [
   new Event(id: 1, date: new DateTime(2020, 3, 16, Random().nextInt(23), Random().nextInt(59)), name: 'RUKU\'s Annual Carnival', location: new EventLocation(name: 'Al Hamra Mall', address: 'Al Hamra Mall', lat: 0, lng: 0), status: EventStatus.interested),
   new Event(id: 8, date: new DateTime(2020, 3, 16, Random().nextInt(23), Random().nextInt(59)), name: 'Cindy & The Avengers', location: new EventLocation(name: 'Star Cineplax', address: 'Star Cineplax', lat: 0, lng: 0), status: EventStatus.going),
   new Event(id: 9, date: new DateTime(2020, 3, 16, Random().nextInt(23), Random().nextInt(59)), name: 'RUKU\'s Annual Carnival', location: new EventLocation(name: 'Al Hamra Mall', address: 'Al Hamra Mall', lat: 0, lng: 0), status: EventStatus.open),
@@ -25,7 +29,7 @@ final events = [
   new Event(id: 5, date: new DateTime(2020, 3, 20, Random().nextInt(23), Random().nextInt(59)), name: 'RUKU\'s Annual Carnival', location: new EventLocation(name: 'Al Hamra Mall', address: 'Al Hamra Mall', lat: 0, lng: 0), status: EventStatus.going),
   new Event(id: 6, date: new DateTime(2020, 3, 21, Random().nextInt(23), Random().nextInt(59)), name: 'Cindy & The Avengers', location: new EventLocation(name: 'Star Cineplax', address: 'Star Cineplax', lat: 0, lng: 0), status: EventStatus.interested),
   new Event(id: 7, date: new DateTime(2020, 3, 22, Random().nextInt(23), Random().nextInt(59)), name: 'RUKU\'s Annual Carnival', location: new EventLocation(name: 'Al Hamra Mall', address: 'Al Hamra Mall', lat: 0, lng: 0), status: EventStatus.open),
-];
+]; */
 
 class DashboardPage extends StatefulWidget {
   DashboardPage() : super();
@@ -36,19 +40,37 @@ class DashboardPage extends StatefulWidget {
 
 class DashboardState extends State<DashboardPage> {
   var repo = new Repository();
+  List<Event> _events = [];
+  StreamSubscription _eventListener;
 
-  DashboardState() {
-    repo.update();
+  void loadData(BuildContext ctx) {
+    print('many ' + ctx.toString());
+    EventService.getMany(ctx: ctx);
   }
 
-  update() {
-    setState(() {
-      repo.update();
+  @override
+  void initState() {
+    repo.events.stream.listen((event) {
+      setState(() {
+        print(event.length);
+        _events = event;
+      });
     });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (_eventListener != null) {
+      _eventListener.cancel();
+    }
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    loadData(context);
+
     final header = Padding(
       padding: EdgeInsets.all(20),
       child: Row(
@@ -68,24 +90,22 @@ class DashboardState extends State<DashboardPage> {
     List<Widget> createDayList() {
       List<Widget> childs = [];
       weekdays.asMap().forEach((index, value) => {
-        childs.add(
-          Container(
-            margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-            child: 
-              FlatButton(
-                onPressed: () => { 
-                  update()
-                },
+            childs.add(Container(
+              margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              child: FlatButton(
+                onPressed: () => {},
                 child: Column(
                   children: <Widget>[
-                    Text(value,
+                    Text(
+                      value,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: mainTextSize,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Text('•',
+                    Text(
+                      '•',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -93,9 +113,8 @@ class DashboardState extends State<DashboardPage> {
                   ],
                 ),
               ),
-            )
-        )
-      });
+            ))
+          });
       return childs;
     }
 
@@ -111,7 +130,13 @@ class DashboardState extends State<DashboardPage> {
       height: 80.0,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: events.map((e) => DailyEvent(event: e, open: () {Navigator.of(context).pushNamed('/event');})).toList(),
+        children: _events
+            .map((e) => DailyEvent(
+                event: e,
+                open: () {
+                  Navigator.of(context).pushNamed('/event');
+                }))
+            .toList(),
       ),
     );
 
@@ -167,5 +192,4 @@ class DashboardState extends State<DashboardPage> {
       ),
     );
   }
-
 }

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'api.dart';
+import 'api.srvc.dart';
 
 class AuthService extends ApiServices {
   static Future<bool> login(String email, String password,

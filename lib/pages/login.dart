@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:events_app/services/auth.dart';
+import 'package:events_app/services/auth.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
