@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:http/http.dart' as http;
 import 'package:rxdart/rxdart.dart';
 //final test = await http.post('http://localhost:3000/signup', body: {'email': _emailController.text, 'password': _passwordController.text});
 
 class ApiServices {
   static post(data, {BuildContext ctx, BehaviorSubject repo}) async {
-    _loading(ctx, true);
+    //_loading(ctx, true);
     await Future.delayed(Duration(seconds: 3));
     // request
     final response = data;
 
-    _loading(ctx, false);
+    //_loading(ctx, false);
     if (repo != null && response != null) {
       repo.add([...repo.value, response]);
       return repo.value;
@@ -28,16 +29,15 @@ class ApiServices {
     return response;
   }
 
-  static Future<T> getMany<T>(
-      {dynamic filter, BuildContext ctx, BehaviorSubject<T> repo}) async {
-    print('get ' + ctx.toString());
+  static Future<List<T>> getMany<T>(
+      {dynamic filter, BuildContext ctx, BehaviorSubject<List<T>> repo}) async {
+    //_loading(ctx, true);
 
-    _loading(ctx, true);
     await Future.delayed(Duration(seconds: 3));
     // request
     final response = repo == null ? [] : repo.value;
 
-    _loading(ctx, false);
+    //_loading(ctx, false);
     return response;
   }
 
@@ -54,7 +54,9 @@ class ApiServices {
             );
           });
     } else {
-      Navigator.pop(context);
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Navigator.pop(context);
+      });
     }
   }
 }

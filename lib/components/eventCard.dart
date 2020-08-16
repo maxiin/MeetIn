@@ -36,7 +36,7 @@ class DailyEvent extends StatelessWidget {
           color: clearColor,
         ),
         SizedBox(width: 8),
-        ClearText(event.location.name, color: clearColor),
+        ClearText(event.placeName, color: clearColor),
       ],
     );
 
@@ -98,16 +98,11 @@ class DailyEvent extends StatelessWidget {
               padding: EdgeInsets.only(left: 24, top: 24, bottom: 24),
               color: primaryColor,
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    time,
-                    title,
-                    location,
-                    SizedBox(height: 10)
-                  ],
-                ),
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[time, title, location, SizedBox(height: 10)],
               ),
             ),
+          ),
           Positioned(
             bottom: 0,
             child: attendButton,

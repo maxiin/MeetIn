@@ -32,6 +32,7 @@ dependencies:
   image_picker: ^0.6.3
   camera: ^0.5.7+4
   path_provider: ^1.6.5
+  faker: ^1.2.1
 
   # Dart.dev deps
   intl: ^0.16.1

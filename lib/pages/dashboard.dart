@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:developer';
+//import 'dart:developer';
+//import 'dart:html';
 import 'dart:math';
 
 import 'package:events_app/components/bigButton.dart';
@@ -19,6 +20,15 @@ final weekdays = List.generate(7, (index) => index)
         .subtract(Duration(days: DateTime.now().weekday - 1))
         .add(Duration(days: value))))
     .toList();
+final debugEvent = new Event(
+    id: 1,
+    date: new DateTime(2020, 3, 16, Random().nextInt(23), Random().nextInt(59)),
+    name: 'RUKU\'s Annual Carnival',
+    placeName: 'Al Hamra Mall',
+    address: 'Al Hamra Mall',
+    latitude: 0,
+    longitude: 0,
+    status: EventStatus.interested);
 /* final events = [
   new Event(id: 1, date: new DateTime(2020, 3, 16, Random().nextInt(23), Random().nextInt(59)), name: 'RUKU\'s Annual Carnival', location: new EventLocation(name: 'Al Hamra Mall', address: 'Al Hamra Mall', lat: 0, lng: 0), status: EventStatus.interested),
   new Event(id: 8, date: new DateTime(2020, 3, 16, Random().nextInt(23), Random().nextInt(59)), name: 'Cindy & The Avengers', location: new EventLocation(name: 'Star Cineplax', address: 'Star Cineplax', lat: 0, lng: 0), status: EventStatus.going),
@@ -43,19 +53,8 @@ class DashboardState extends State<DashboardPage> {
   List<Event> _events = [];
   StreamSubscription _eventListener;
 
-  void loadData(BuildContext ctx) {
-    print('many ' + ctx.toString());
-    EventService.getMany(ctx: ctx);
-  }
-
   @override
   void initState() {
-    repo.events.stream.listen((event) {
-      setState(() {
-        print(event.length);
-        _events = event;
-      });
-    });
     super.initState();
   }
 
@@ -69,7 +68,7 @@ class DashboardState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    loadData(context);
+    EventService.getMany(ctx: context);
 
     final header = Padding(
       padding: EdgeInsets.all(20),
@@ -127,8 +126,25 @@ class DashboardState extends State<DashboardPage> {
     );
 
     final eventList = Container(
-      height: 80.0,
-      child: ListView(
+        height: 80.0,
+        child: StreamBuilder<List<Event>>(
+          stream: this.repo.events.asBroadcastStream(),
+          builder: (BuildContext context, AsyncSnapshot<List<Event>> events) {
+            List<Widget> children = [];
+            if (events.data != null && events.data.isNotEmpty) {
+              for (Event event in events.data) {
+                children.add(DailyEvent(
+                    event: event,
+                    open: () {
+                      Navigator.of(context).pushNamed('/event');
+                    }));
+              }
+            }
+            return ListView(
+                scrollDirection: Axis.horizontal, children: children);
+          },
+        )
+        /* child: ListView(
         scrollDirection: Axis.horizontal,
         children: _events
             .map((e) => DailyEvent(
@@ -137,8 +153,8 @@ class DashboardState extends State<DashboardPage> {
                   Navigator.of(context).pushNamed('/event');
                 }))
             .toList(),
-      ),
-    );
+      ), */
+        );
 
     final hostingHeader = Padding(
       padding: EdgeInsets.all(20),
@@ -158,6 +174,11 @@ class DashboardState extends State<DashboardPage> {
             height: 230,
             margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
             child: eventList,
+          ),
+          RaisedButton(
+            onPressed: () {
+              this.repo.events.add([...this.repo.events.value, debugEvent]);
+            },
           ),
           hostingHeader,
           Padding(

@@ -22,11 +22,11 @@ class EventState extends State<EventPage> {
   Event _event = new Event();
 
   EventState() {
-    repo.events.listen((value) {
+/*     repo.events.listen((value) {
       setState(() {
         _event = value[0];
       });
-    });
+    }); */
   }
 
   @override
@@ -34,7 +34,9 @@ class EventState extends State<EventPage> {
     final header = Stack(
       children: <Widget>[
         ClipRRect(
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(32), bottomRight: Radius.circular(32)),
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(32),
+              bottomRight: Radius.circular(32)),
           child: SelectImg(type: SelectType.full),
         ),
         Padding(
@@ -45,20 +47,20 @@ class EventState extends State<EventPage> {
               Expanded(
                 flex: 8,
                 child: Container(
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(32.0),
-                    color: clearTintColor,
-                  ),
-                  child: TitleText(_event.name)
-                ),
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32.0),
+                      color: clearTintColor,
+                    ),
+                    child: TitleText(_event.name)),
               ),
               Expanded(
                 flex: 2,
                 child: Center(
                   child: FloatingActionButton(
                     onPressed: () {},
-                    child: SvgPicture.asset('assets/defaults/female-avatar.svg'),
+                    child:
+                        SvgPicture.asset('assets/defaults/female-avatar.svg'),
                     shape: borderRadius,
                     mini: true,
                   ),
@@ -72,11 +74,8 @@ class EventState extends State<EventPage> {
 
     return Scaffold(
       body: ListView(
-        children: <Widget>[
-          header
-        ],
+        children: <Widget>[header],
       ),
     );
   }
-
 }
