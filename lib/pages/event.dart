@@ -22,11 +22,11 @@ class EventState extends State<EventPage> {
   Event _event = new Event();
 
   EventState() {
-/*     repo.events.listen((value) {
+    repo.events.listen((value) {
       setState(() {
         _event = value[0];
       });
-    }); */
+    });
   }
 
   @override
@@ -39,33 +39,33 @@ class EventState extends State<EventPage> {
               bottomRight: Radius.circular(32)),
           child: SelectImg(type: SelectType.full),
         ),
-        Padding(
-          padding: EdgeInsets.all(20),
+        /* Align(
+          alignment: Alignment.topRight,
+          child: Container(
+            padding: EdgeInsets.all(8),
+            child: FloatingActionButton(
+              onPressed: () {},
+              child: SvgPicture.asset('assets/defaults/female-avatar.svg'),
+              shape: borderRadius,
+              mini: true,
+            ),
+          ),
+        ), */
+        Expanded(
+          flex: 1,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Expanded(
-                flex: 8,
-                child: Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32.0),
-                      color: clearTintColor,
-                    ),
-                    child: TitleText(_event.name)),
-              ),
-              Expanded(
-                flex: 2,
-                child: Center(
-                  child: FloatingActionButton(
-                    onPressed: () {},
-                    child:
-                        SvgPicture.asset('assets/defaults/female-avatar.svg'),
-                    shape: borderRadius,
-                    mini: true,
+              Container(
+                  margin: EdgeInsets.only(top: 210.0),
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(16),
+                        topLeft: Radius.circular(16)),
+                    color: primaryColor,
                   ),
-                ),
-              )
+                  child: TitleText(_event.name != null ? _event.name : '')),
             ],
           ),
         ),
