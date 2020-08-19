@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:events_app/components/bigButton.dart';
-import 'package:events_app/components/bigInput.dart';
 import 'package:events_app/components/dateCard.dart';
 import 'package:events_app/components/selectImg.dart';
 import 'package:events_app/utils/colors.dart';
@@ -9,11 +8,8 @@ import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/maps.dart';
 import 'package:events_app/utils/validation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_webservice/places.dart';
 
 final CameraPosition kGooglePlex = CameraPosition(
   target: LatLng(37.42796133580664, -122.085749655962),
@@ -21,11 +17,10 @@ final CameraPosition kGooglePlex = CameraPosition(
 );
 
 final CameraPosition kLake = CameraPosition(
-  bearing: 192.8334901395799,
-  target: LatLng(37.43296265331129, -122.08832357078792),
-  tilt: 59.440717697143555,
-  zoom: 19.151926040649414
-);
+    bearing: 192.8334901395799,
+    target: LatLng(37.43296265331129, -122.08832357078792),
+    tilt: 59.440717697143555,
+    zoom: 19.151926040649414);
 
 class CreateEvent extends StatefulWidget {
   CreateEvent() : super();
@@ -46,19 +41,24 @@ class CreateEventState extends State<CreateEvent> {
   }
 
   loadLocation() async {
-    Position newPosition = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position newPosition = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState(() {
       _position = newPosition;
-      _controller.animateCamera(
-        CameraUpdate.newLatLng(new LatLng(newPosition.latitude, newPosition.longitude))
-      );
-      _markers[new MarkerId('center')] = new Marker(markerId: new MarkerId("center"), position: LatLng(newPosition.latitude, newPosition.longitude));
+      _controller.animateCamera(CameraUpdate.newLatLng(
+          new LatLng(newPosition.latitude, newPosition.longitude)));
+      _markers[new MarkerId('center')] = new Marker(
+          markerId: new MarkerId("center"),
+          position: LatLng(newPosition.latitude, newPosition.longitude));
     });
   }
 
   changeLocation(LatLng latLng) {
-    _position = new Position(latitude: latLng.latitude, longitude: latLng.longitude);
-    _markers[new MarkerId('center')] = new Marker(markerId: new MarkerId("center"), position: LatLng(latLng.latitude, latLng.longitude));
+    _position =
+        new Position(latitude: latLng.latitude, longitude: latLng.longitude);
+    _markers[new MarkerId('center')] = new Marker(
+        markerId: new MarkerId("center"),
+        position: LatLng(latLng.latitude, latLng.longitude));
     _controller.animateCamera(
       CameraUpdate.newLatLng(latLng),
     );
@@ -66,11 +66,12 @@ class CreateEventState extends State<CreateEvent> {
 
   @override
   Widget build(BuildContext context) {
-    
     final header = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        CircleAvatar(radius: 30, child: SvgPicture.asset('assets/defaults/female-avatar.svg')),
+        CircleAvatar(
+            radius: 30,
+            child: Image.asset('assets/images/undraw_female_avatar.png')),
         SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,21 +96,19 @@ class CreateEventState extends State<CreateEvent> {
     );
 
     final nameInput = Container(
-      margin: EdgeInsets.only(bottom: 16),
-      child: TextFormField(
-        validator: validateEmail,
-        decoration: inputStyle(hint: 'Title'),
-      )
-    );
+        margin: EdgeInsets.only(bottom: 16),
+        child: TextFormField(
+          validator: validateEmail,
+          decoration: inputStyle(hint: 'Title'),
+        ));
 
     final descriptionInput = Container(
-      margin: EdgeInsets.only(bottom: 16),
-      child: TextFormField(
-        validator: validateEmail,
-        decoration: inputStyle(hint: 'Description'),
-        maxLines: 4,
-      )
-    );
+        margin: EdgeInsets.only(bottom: 16),
+        child: TextFormField(
+          validator: validateEmail,
+          decoration: inputStyle(hint: 'Description'),
+          maxLines: 4,
+        ));
 
     final dateHeader = Container(
       alignment: Alignment.centerLeft,
@@ -120,7 +119,13 @@ class CreateEventState extends State<CreateEvent> {
     final dateInput = Row(
       children: <Widget>[
         DateCard(date: DateTime.now(), onPressed: null, showHour: true),
-        Expanded(child: BigButton(title: 'Change Date', color: secondaryColor, description: 'All day events available', onPressed: () {},))
+        Expanded(
+            child: BigButton(
+          title: 'Change Date',
+          color: secondaryColor,
+          description: 'All day events available',
+          onPressed: () {},
+        ))
       ],
     );
 
@@ -153,7 +158,7 @@ class CreateEventState extends State<CreateEvent> {
         ),
         onMapCreated: (GoogleMapController controller) {
           _controller = controller;
-          if (!_mapsCompleter.isCompleted){
+          if (!_mapsCompleter.isCompleted) {
             _mapsCompleter.complete(controller);
           }
         },
@@ -165,7 +170,7 @@ class CreateEventState extends State<CreateEvent> {
       title: 'Somewhere else',
       color: secondaryColor,
       description: 'Change Location',
-      onPressed: () { 
+      onPressed: () {
         findPlace(context).then((value) => changeLocation(value));
       },
       noMargin: true,
@@ -186,8 +191,14 @@ class CreateEventState extends State<CreateEvent> {
                 imageHeader,
                 Stack(
                   children: <Widget>[
-                    SelectImg(type: SelectType.full, canEdit: true,),
-                    SelectImg(type: SelectType.round, canEdit: true,),
+                    SelectImg(
+                      type: SelectType.full,
+                      canEdit: true,
+                    ),
+                    SelectImg(
+                      type: SelectType.round,
+                      canEdit: true,
+                    ),
                   ],
                 ),
                 SizedBox(height: 16.0),

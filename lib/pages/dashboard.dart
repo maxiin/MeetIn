@@ -10,7 +10,6 @@ import 'package:events_app/services/event.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import '../repository.dart';
@@ -78,7 +77,8 @@ class DashboardState extends State<DashboardPage> {
           TitleText('Upcoming Events'),
           FloatingActionButton(
             onPressed: () {},
-            child: SvgPicture.asset('assets/defaults/female-avatar.svg'),
+            //child: SvgPicture.asset('assets/defaults/female-avatar.svg'),
+            child: Image.asset('assets/images/undraw_female_avatar.png'),
             shape: borderRadius,
             mini: true,
           ),

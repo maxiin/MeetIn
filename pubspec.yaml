@@ -38,8 +38,6 @@ dependencies:
   build_runner: ^1.8.0
   path: any
 
-  faker: ^1.2.1
-  flutter_svg: ^0.18.0
   rxdart: ^0.23.1
   flutter_google_places: ^0.2.4
   image_cropper:
@@ -49,6 +47,7 @@ dependencies:
   shimmer: ^1.0.0
 
 dev_dependencies:
+  faker: ^1.2.1
   flutter_test:
     sdk: flutter
 
@@ -66,6 +65,11 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+   - assets/images/logo-dark.png
+   - assets/images/undraw_board.png
+   - assets/images/undraw_page.png
+   - assets/images/undraw_female_avatar.png
+   - assets/images/undraw_male_avatar.png
    - assets/images/logo-dark.svg
    - assets/images/logo-white.svg
    - assets/images/party.svg

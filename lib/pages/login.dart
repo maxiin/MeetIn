@@ -5,7 +5,6 @@ import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
 import 'dashboard.dart';
@@ -28,11 +27,12 @@ class LoginState extends State<LoginPage> {
     final logo = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        SvgPicture.asset(
+        Image.asset('assets/images/logo-dark.png', height: 44),
+        /* SvgPicture.asset(
           'assets/images/logo-dark.svg',
           height: 44,
           color: primaryColor,
-        ),
+        ), */
         TitleText('Meet', color: primaryColor),
         TitleText('In', color: secondaryColor),
       ],
@@ -43,11 +43,10 @@ class LoginState extends State<LoginPage> {
       child: Opacity(
           opacity: 0.2,
           child: SizedBox(
-            // TODO needs fixing
-            // stackoverflow.com/questions/62257156
-            child: SvgPicture.asset('assets/images/party.svg',
-                alignment: Alignment.topCenter),
-            height: 300,
+            child: Image.asset('assets/images/undraw_page.png'),
+            /* child: SvgPicture.asset('assets/images/party.svg',
+                alignment: Alignment.topCenter), */
+            height: 200,
             width: 1080,
           )),
     );
