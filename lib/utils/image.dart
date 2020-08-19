@@ -3,7 +3,7 @@ import 'package:events_app/utils/colors.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 Future<File> cropImage(File image, {CropAspectRatioPreset defaultAspectRatio}) {
-  if (image != null && image.path != null) {
+  if (image == null || image.path == null) {
     return null;
   }
   return ImageCropper.cropImage(

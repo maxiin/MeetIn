@@ -192,12 +192,10 @@ class CreateEventState extends State<CreateEvent> {
                 imageHeader,
                 Stack(
                   children: <Widget>[
-                    SelectImg(
-                      type: SelectType.full,
+                    SelectFullImg(
                       canEdit: true,
                     ),
-                    SelectImg(
-                      type: SelectType.round,
+                    SelectCircleImg(
                       canEdit: true,
                     ),
                   ],

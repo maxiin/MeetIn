@@ -31,48 +31,137 @@ class EventState extends State<EventPage> {
   Widget build(BuildContext context) {
     final header = Stack(
       children: <Widget>[
-        ClipRRect(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(32),
-              bottomRight: Radius.circular(32)),
-          child: SelectImg(type: SelectType.full),
+        Container(
+          height: selectImgFullHeight,
+          color: backgroundColor,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(32),
+                bottomRight: Radius.circular(32)),
+            child: SelectFullImg(),
+          ),
         ),
-        /* Align(
+        Align(
           alignment: Alignment.topRight,
           child: Container(
             padding: EdgeInsets.all(8),
             child: FloatingActionButton(
               onPressed: () {},
-              child: SvgPicture.asset('assets/defaults/female-avatar.svg'),
+              child: Image.asset('assets/images/undraw_female_avatar.png'),
               shape: borderRadius,
               mini: true,
             ),
           ),
-        ), */
-        Expanded(
-          flex: 1,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                  margin: EdgeInsets.only(top: 210.0),
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(16),
-                        topLeft: Radius.circular(16)),
-                    color: primaryColor,
-                  ),
-                  child: TitleText(_event.name != null ? _event.name : '')),
-            ],
-          ),
-        ),
+        )
       ],
     );
 
     return Scaffold(
-      body: ListView(
-        children: <Widget>[header],
+      backgroundColor: primaryColor,
+      body: Column(
+        children: <Widget>[
+          header,
+          Expanded(
+            child: ListView(
+              //scrollDirection: Axis.vertical,
+              //shrinkWrap: true,
+              //padding: const EdgeInsets.all(8),
+              children: <Widget>[
+                TitleText(
+                  _event.name != null ? _event.name : '',
+                  color: secondaryColor,
+                  align: TextAlign.center,
+                ),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+                Text('data'),
+              ],
+            ),
+          ),
+          /* Container(
+            transform: Matrix4.translationValues(0.0, -16.0, 0.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(16), topLeft: Radius.circular(16)),
+              color: primaryColor,
+            ),
+            child: Center(
+                child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 32, 0, 0),
+              child: Expanded(
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(8),
+                  children: <Widget>[
+                    TitleText(
+                      _event.name != null ? _event.name : '',
+                      color: secondaryColor,
+                      align: TextAlign.center,
+                    ),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                    Text('data'),
+                  ],
+                ),
+              ),
+            )),
+          ),*/
+        ],
       ),
     );
   }

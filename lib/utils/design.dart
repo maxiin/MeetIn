@@ -6,6 +6,7 @@ final cardWidth = 170.0;
 final cardHeight = 230.0;
 final buttonHeight = 44.0;
 final bigButton = 88.0;
+final selectImgFullHeight = 210.0;
 
 final titleSize = 32.0;
 final mainTextSize = 18.0;
@@ -19,18 +20,17 @@ final borderRadius = RoundedRectangleBorder(
 class TitleText extends StatelessWidget {
   final String text;
   Color color = darkColor;
+  TextAlign align = TextAlign.start;
 
-  TitleText(this.text,{this.color});
+  TitleText(this.text, {this.color, this.align});
 
   @override
   Widget build(BuildContext context) {
-    return new Text(text,
-      style: TextStyle(
-        color: color,
-        fontWeight: titleWeight,
-        fontSize: titleSize
-      ),
-      textAlign: TextAlign.start,
+    return new Text(
+      text,
+      style:
+          TextStyle(color: color, fontWeight: titleWeight, fontSize: titleSize),
+      textAlign: align,
     );
   }
 }
@@ -40,11 +40,12 @@ class MainText extends StatelessWidget {
   final String text;
   final Color color;
 
-  MainText(this.text,{this.color});
+  MainText(this.text, {this.color});
 
   @override
   Widget build(BuildContext context) {
-    return new Text(text,
+    return new Text(
+      text,
       style: TextStyle(
         color: color,
         fontWeight: titleWeight,
@@ -59,16 +60,14 @@ class ClearText extends StatelessWidget {
   final String text;
   final Color color;
 
-  ClearText(this.text,{this.color});
+  ClearText(this.text, {this.color});
 
   @override
   Widget build(BuildContext context) {
-    return new Text(text,
-      style: TextStyle(
-        color: color,
-        fontWeight: descWeight,
-        fontSize: textSize
-      ),
+    return new Text(
+      text,
+      style:
+          TextStyle(color: color, fontWeight: descWeight, fontSize: textSize),
       textAlign: TextAlign.left,
     );
   }
@@ -79,15 +78,13 @@ class DescriptionText extends StatelessWidget {
   final String text;
   final Color color;
 
-  DescriptionText(this.text,{this.color});
+  DescriptionText(this.text, {this.color});
 
   @override
   Widget build(BuildContext context) {
-    return new Text(text,
-      style: TextStyle(
-        color: color,
-        fontSize: mainTextSize
-      ),
+    return new Text(
+      text,
+      style: TextStyle(color: color, fontSize: mainTextSize),
     );
   }
 }
@@ -99,11 +96,9 @@ class ButtonText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Text(text,
-      style: TextStyle(
-        color: clearColor,
-        fontSize: textSize
-      ),
+    return new Text(
+      text,
+      style: TextStyle(color: clearColor, fontSize: textSize),
     );
   }
 }
@@ -114,10 +109,8 @@ InputDecoration inputStyle({@required String hint}) {
     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
     fillColor: clearTintColor,
-    errorStyle: TextStyle(
-      color: secondaryColor
-    ),
-    focusedErrorBorder:new OutlineInputBorder(
+    errorStyle: TextStyle(color: secondaryColor),
+    focusedErrorBorder: new OutlineInputBorder(
       borderRadius: BorderRadius.circular(32.0),
       borderSide: BorderSide(color: secondaryColor, width: 2),
     ),
@@ -128,20 +121,19 @@ InputDecoration inputStyle({@required String hint}) {
   );
 }
 
-InputDecoration passwordInputStyle({@required String hint, @required void Function() toggle}) {
+InputDecoration passwordInputStyle(
+    {@required String hint, @required void Function() toggle}) {
   return InputDecoration(
     hintText: 'Password',
     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
     fillColor: clearTintColor,
-    suffixIcon:  IconButton(
+    suffixIcon: IconButton(
       onPressed: toggle,
       icon: Icon(Icons.remove_red_eye),
     ),
-    errorStyle: TextStyle(
-      color: secondaryColor
-    ),
-    focusedErrorBorder:new OutlineInputBorder(
+    errorStyle: TextStyle(color: secondaryColor),
+    focusedErrorBorder: new OutlineInputBorder(
       borderRadius: BorderRadius.circular(32.0),
       borderSide: BorderSide(color: secondaryColor, width: 2),
     ),

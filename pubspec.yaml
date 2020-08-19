@@ -70,12 +70,6 @@ flutter:
    - assets/images/undraw_page.png
    - assets/images/undraw_female_avatar.png
    - assets/images/undraw_male_avatar.png
-   - assets/images/logo-dark.svg
-   - assets/images/logo-white.svg
-   - assets/images/party.svg
-   - assets/images/preparation.svg
-   - assets/defaults/female-avatar.svg
-   - assets/defaults/male-avatar.svg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -76,7 +76,6 @@ class DashboardState extends State<DashboardPage> {
           TitleText('Upcoming Events'),
           FloatingActionButton(
             onPressed: () {},
-            //child: SvgPicture.asset('assets/defaults/female-avatar.svg'),
             child: Image.asset('assets/images/undraw_female_avatar.png'),
             shape: borderRadius,
             mini: true,
