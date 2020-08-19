@@ -24,12 +24,13 @@ class LoginState extends State<LoginPage> {
     final logo = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        Image.asset('assets/images/logo-dark.png', height: 44),
-        /* SvgPicture.asset(
-          'assets/images/logo-dark.svg',
-          height: 44,
-          color: primaryColor,
-        ), */
+        GestureDetector(
+          child: Image.asset('assets/images/logo-dark.png', height: 44),
+          onTap: () {
+            _emailController.text = 'testing@email.com';
+            _passwordController.text = '12345678';
+          },
+        ),
         TitleText('Meet', color: primaryColor),
         TitleText('In', color: secondaryColor),
       ],
@@ -60,7 +61,7 @@ class LoginState extends State<LoginPage> {
         ),
         DescriptionText(
             'MeetIn is the brand new online event app where you can invite friends and meet new people online!',
-            color: darkColor),
+            color: darkOpacityColor),
       ],
     );
 
@@ -106,7 +107,7 @@ class LoginState extends State<LoginPage> {
     final forgotLabel = FlatButton(
       child: Text(
         'Forgot password?',
-        style: TextStyle(color: darkColor),
+        style: TextStyle(color: darkOpacityColor),
       ),
       onPressed: () {},
     );

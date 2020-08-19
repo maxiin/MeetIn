@@ -58,109 +58,80 @@ class EventState extends State<EventPage> {
 
     return Scaffold(
       backgroundColor: primaryColor,
-      body: Column(
+      body: Stack(
         children: <Widget>[
-          header,
-          Expanded(
-            child: ListView(
-              //scrollDirection: Axis.vertical,
-              //shrinkWrap: true,
-              //padding: const EdgeInsets.all(8),
-              children: <Widget>[
-                TitleText(
-                  _event.name != null ? _event.name : '',
-                  color: secondaryColor,
-                  align: TextAlign.center,
-                ),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-                Text('data'),
-              ],
+          //The background
+          Positioned(
+            left: 0,
+            right: 0,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: selectImgFullHeight + 16),
+              child: Container(
+                color: clearColor,
+                child: Image.asset('assets/images/undraw_page.png'),
+              ),
             ),
           ),
-          /* Container(
-            transform: Matrix4.translationValues(0.0, -16.0, 0.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(16), topLeft: Radius.circular(16)),
-              color: primaryColor,
-            ),
-            child: Center(
-                child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 32, 0, 0),
-              child: Expanded(
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(8),
-                  children: <Widget>[
-                    TitleText(
-                      _event.name != null ? _event.name : '',
-                      color: secondaryColor,
-                      align: TextAlign.center,
-                    ),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                    Text('data'),
-                  ],
+          //The scroll view
+          CustomScrollView(
+            slivers: <Widget>[
+              SliverList(
+                  delegate: SliverChildListDelegate([
+                SizedBox(
+                  height: selectImgFullHeight,
                 ),
-              ),
-            )),
-          ),*/
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(16),
+                        topLeft: Radius.circular(16)),
+                    color: primaryColor,
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      TitleText(
+                        _event.name != null
+                            ? _event.name +
+                                'lorem ipsum dolor sit amet lorem ipsum dolor sit'
+                            : '',
+                        color: secondaryColor,
+                        align: TextAlign.center,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 32.0),
+                        child: ClearText(
+                            'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ',
+                            color: secondaryColor),
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Column(
+                              children: <Widget>[
+                                Text('data'),
+                                Text('data'),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              color: Colors.amber,
+                              child: Column(
+                                children: <Widget>[
+                                  Text('data'),
+                                  Text('data'),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ]))
+            ],
+          )
         ],
       ),
     );

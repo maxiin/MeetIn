@@ -24,5 +24,6 @@ Color transparentColor = new Color(0x00000000);
 
 Color clearColor = Colors.white;
 Color clearTintColor = Colors.white70;
-Color darkColor = Colors.black54;
+Color darkOpacityColor = Colors.black54;
+Color almostDarkColor = Color(0xff212121);
 Color backgroundColor = Colors.white;

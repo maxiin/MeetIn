@@ -19,7 +19,7 @@ final borderRadius = RoundedRectangleBorder(
 
 class TitleText extends StatelessWidget {
   final String text;
-  Color color = darkColor;
+  Color color = darkOpacityColor;
   TextAlign align = TextAlign.start;
 
   TitleText(this.text, {this.color, this.align});
@@ -77,14 +77,16 @@ class ClearText extends StatelessWidget {
 class DescriptionText extends StatelessWidget {
   final String text;
   final Color color;
+  TextAlign align = TextAlign.start;
 
-  DescriptionText(this.text, {this.color});
+  DescriptionText(this.text, {this.color, this.align});
 
   @override
   Widget build(BuildContext context) {
     return new Text(
       text,
       style: TextStyle(color: color, fontSize: mainTextSize),
+      textAlign: align,
     );
   }
 }
