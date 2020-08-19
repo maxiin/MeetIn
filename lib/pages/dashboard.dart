@@ -49,7 +49,6 @@ class DashboardPage extends StatefulWidget {
 
 class DashboardState extends State<DashboardPage> {
   var repo = new Repository();
-  List<Event> _events = [];
   StreamSubscription _eventListener;
 
   @override

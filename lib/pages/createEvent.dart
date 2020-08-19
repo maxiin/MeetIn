@@ -69,6 +69,7 @@ class CreateEventState extends State<CreateEvent> {
     final header = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
+        //CircleAvatar(radius: 30, child: SvgPicture.asset('assets/defaults/female-avatar.svg')),
         CircleAvatar(
             radius: 30,
             child: Image.asset('assets/images/undraw_female_avatar.png')),

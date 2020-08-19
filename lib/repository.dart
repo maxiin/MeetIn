@@ -104,5 +104,5 @@ class Repository {
   static final Repository _instance = Repository._internal();
   factory Repository() => _instance;
 
-  Repository._internal() {}
+  Repository._internal();
 }

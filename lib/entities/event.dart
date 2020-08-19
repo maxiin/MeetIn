@@ -1,5 +1,3 @@
-import 'package:events_app/repository.dart';
-
 class Event {
   int id;
   DateTime date;

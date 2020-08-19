@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:events_app/services/auth.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import 'dashboard.dart';
 
