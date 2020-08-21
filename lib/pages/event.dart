@@ -1,9 +1,11 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:events_app/entities/event.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 class EventPage extends StatefulWidget {
   EventPage() : super();
@@ -18,6 +20,45 @@ class EventState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
     final Event event = ModalRoute.of(context).settings.arguments;
+    print(event);
+
+    getDateString() {
+      final days = event.date.difference(new DateTime.now()).inDays;
+      final hours = event.date.difference(new DateTime.now()).inHours;
+      return days.toString() + 'd ' + (hours % 24).toString() + 'h';
+    }
+
+    getDistanceString() async {
+      Position position = await Geolocator()
+          .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      final userLat = position.latitude;
+      final userLng = position.longitude;
+
+      if (event.latitude == null ||
+          event.longitude == null ||
+          userLat == null ||
+          userLng == null) {
+        return '??km';
+      }
+      if ((userLat == event.latitude) && (userLng == event.longitude)) {
+        return '0km';
+      } else {
+        final thisRadius = pi * userLat / 180;
+        final schoolRadius = pi * event.latitude / 180;
+        final dis = userLng - event.longitude;
+        final disRadius = pi * dis / 180;
+        double finalDis = sin(thisRadius) * sin(schoolRadius) +
+            cos(thisRadius) * cos(schoolRadius) * cos(disRadius);
+        if (finalDis > 1) {
+          finalDis = 1;
+        }
+        finalDis = acos(finalDis);
+        finalDis = finalDis * 180 / pi;
+        finalDis = finalDis * 60 * 1.1515;
+        finalDis = finalDis * 1.609344;
+        return finalDis.toStringAsFixed(2) + 'km';
+      }
+    }
 
     return Scaffold(
       backgroundColor: primaryColor,
@@ -72,7 +113,7 @@ class EventState extends State<EventPage> {
                             children: <Widget>[
                               Column(
                                 children: <Widget>[
-                                  TitleText('English', color: clearColor),
+                                  TitleText(event.language, color: clearColor),
                                   Row(
                                     children: <Widget>[
                                       Icon(
@@ -90,7 +131,14 @@ class EventState extends State<EventPage> {
                               ),
                               Column(
                                 children: <Widget>[
-                                  TitleText('45km', color: clearColor),
+                                  FutureBuilder(
+                                      future: getDistanceString(),
+                                      initialData: '',
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<String> snapshot) {
+                                        return TitleText(snapshot.data,
+                                            color: clearColor);
+                                      }),
                                   Row(
                                     children: <Widget>[
                                       Icon(
@@ -112,7 +160,7 @@ class EventState extends State<EventPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            TitleText('24d 6h 23m 19s', color: clearColor),
+                            TitleText(getDateString(), color: clearColor),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[

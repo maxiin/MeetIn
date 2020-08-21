@@ -47,7 +47,9 @@ dependencies:
   shimmer: ^1.0.0
 
 dev_dependencies:
-  faker: ^1.2.1
+  #faker: ^1.2.1
+  faker:
+     path: ./lib/packages/faker
   flutter_test:
     sdk: flutter
 

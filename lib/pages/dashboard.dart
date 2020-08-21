@@ -18,15 +18,6 @@ final weekdays = List.generate(7, (index) => index)
         .subtract(Duration(days: DateTime.now().weekday - 1))
         .add(Duration(days: value))))
     .toList();
-final debugEvent = new Event(
-    id: 1,
-    date: new DateTime(2020, 3, 16, Random().nextInt(23), Random().nextInt(59)),
-    name: 'RUKU\'s Annual Carnival',
-    placeName: 'Al Hamra Mall',
-    address: 'Al Hamra Mall',
-    latitude: 0,
-    longitude: 0,
-    status: EventStatus.interested);
 
 class DashboardPage extends StatefulWidget {
   DashboardPage() : super();
@@ -153,18 +144,17 @@ class DashboardState extends State<DashboardPage> {
           ),
           RaisedButton(
             onPressed: () {
-              new Event(
-                id: new Random().nextInt(100),
-                /* date: new DateTime(new Random().nextInt(15768000000) +
-                    DateTime.now().millisecondsSinceEpoch), */
-                date: faker.date.dateTime(minYear: 2020, maxYear: 2022),
-                name: faker.conference.name(),
-                latitude: (new Random().nextDouble() * (180 - -180) + -180),
-                longitude: (new Random().nextDouble() * (180 - -180) + -180),
-                address: faker.address.streetAddress(),
-                placeName: faker.address.streetName(),
-              );
-              this.repo.events.add([...this.repo.events.value, debugEvent]);
+              final event = new Event(
+                  id: new Random().nextInt(100),
+                  date: faker.date.dateTime(minYear: 2020, maxYear: 2022),
+                  name: faker.conference.name(),
+                  latitude: faker.address.lat(),
+                  longitude: faker.address.lng(),
+                  address: faker.address.streetAddress(),
+                  placeName: faker.address.streetName(),
+                  language: faker.person.language(),
+                  status: EventStatus.interested);
+              this.repo.events.add([...this.repo.events.value, event]);
             },
           ),
           hostingHeader,
