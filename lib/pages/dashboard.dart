@@ -1,8 +1,7 @@
 import 'dart:async';
-//import 'dart:developer';
-//import 'dart:html';
 import 'dart:math';
 
+import 'package:faker/faker.dart';
 import 'package:events_app/components/bigButton.dart';
 import 'package:events_app/components/eventCard.dart';
 import 'package:events_app/entities/event.dart';
@@ -28,17 +27,6 @@ final debugEvent = new Event(
     latitude: 0,
     longitude: 0,
     status: EventStatus.interested);
-/* final events = [
-  new Event(id: 1, date: new DateTime(2020, 3, 16, Random().nextInt(23), Random().nextInt(59)), name: 'RUKU\'s Annual Carnival', location: new EventLocation(name: 'Al Hamra Mall', address: 'Al Hamra Mall', lat: 0, lng: 0), status: EventStatus.interested),
-  new Event(id: 8, date: new DateTime(2020, 3, 16, Random().nextInt(23), Random().nextInt(59)), name: 'Cindy & The Avengers', location: new EventLocation(name: 'Star Cineplax', address: 'Star Cineplax', lat: 0, lng: 0), status: EventStatus.going),
-  new Event(id: 9, date: new DateTime(2020, 3, 16, Random().nextInt(23), Random().nextInt(59)), name: 'RUKU\'s Annual Carnival', location: new EventLocation(name: 'Al Hamra Mall', address: 'Al Hamra Mall', lat: 0, lng: 0), status: EventStatus.open),
-  new Event(id: 2, date: new DateTime(2020, 3, 17, Random().nextInt(23), Random().nextInt(59)), name: 'Cindy & The Avengers', location: new EventLocation(name: 'Star Cineplax', address: 'Star Cineplax', lat: 0, lng: 0), status: EventStatus.interested),
-  new Event(id: 3, date: new DateTime(2020, 3, 18, Random().nextInt(23), Random().nextInt(59)), name: 'RUKU\'s Annual Carnival', location: new EventLocation(name: 'Al Hamra Mall', address: 'Al Hamra Mall', lat: 0, lng: 0), status: EventStatus.going),
-  new Event(id: 4, date: new DateTime(2020, 3, 19, Random().nextInt(23), Random().nextInt(59)), name: 'Cindy & The Avengers', location: new EventLocation(name: 'Star Cineplax', address: 'Star Cineplax', lat: 0, lng: 0), status: EventStatus.interested),
-  new Event(id: 5, date: new DateTime(2020, 3, 20, Random().nextInt(23), Random().nextInt(59)), name: 'RUKU\'s Annual Carnival', location: new EventLocation(name: 'Al Hamra Mall', address: 'Al Hamra Mall', lat: 0, lng: 0), status: EventStatus.going),
-  new Event(id: 6, date: new DateTime(2020, 3, 21, Random().nextInt(23), Random().nextInt(59)), name: 'Cindy & The Avengers', location: new EventLocation(name: 'Star Cineplax', address: 'Star Cineplax', lat: 0, lng: 0), status: EventStatus.interested),
-  new Event(id: 7, date: new DateTime(2020, 3, 22, Random().nextInt(23), Random().nextInt(59)), name: 'RUKU\'s Annual Carnival', location: new EventLocation(name: 'Al Hamra Mall', address: 'Al Hamra Mall', lat: 0, lng: 0), status: EventStatus.open),
-]; */
 
 class DashboardPage extends StatefulWidget {
   DashboardPage() : super();
@@ -134,25 +122,15 @@ class DashboardState extends State<DashboardPage> {
                 children.add(DailyEvent(
                     event: event,
                     open: () {
-                      Navigator.of(context).pushNamed('/event');
+                      Navigator.of(context)
+                          .pushNamed('/event', arguments: event);
                     }));
               }
             }
             return ListView(
                 scrollDirection: Axis.horizontal, children: children);
           },
-        )
-        /* child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: _events
-            .map((e) => DailyEvent(
-                event: e,
-                open: () {
-                  Navigator.of(context).pushNamed('/event');
-                }))
-            .toList(),
-      ), */
-        );
+        ));
 
     final hostingHeader = Padding(
       padding: EdgeInsets.all(20),
@@ -175,6 +153,17 @@ class DashboardState extends State<DashboardPage> {
           ),
           RaisedButton(
             onPressed: () {
+              new Event(
+                id: new Random().nextInt(100),
+                /* date: new DateTime(new Random().nextInt(15768000000) +
+                    DateTime.now().millisecondsSinceEpoch), */
+                date: faker.date.dateTime(minYear: 2020, maxYear: 2022),
+                name: faker.conference.name(),
+                latitude: (new Random().nextDouble() * (180 - -180) + -180),
+                longitude: (new Random().nextDouble() * (180 - -180) + -180),
+                address: faker.address.streetAddress(),
+                placeName: faker.address.streetName(),
+              );
               this.repo.events.add([...this.repo.events.value, debugEvent]);
             },
           ),
@@ -183,11 +172,6 @@ class DashboardState extends State<DashboardPage> {
             padding: EdgeInsets.only(left: 20),
             child: ClearText('You are not hosting any event yet'),
           ),
-          // Container(
-          //   height: 230,
-          //   margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-          //   child: eventList,
-          // ),
           SizedBox(height: 24),
           BigButton(
             title: 'Create Public Events',

@@ -17,11 +17,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: primaryMaterialColor,
       ),
       home: LoginPage(),
-      routes: <String, WidgetBuilder> {
+      routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => new LoginPage(),
-        '/dash' : (BuildContext context) => new DashboardPage(),
-        '/new' : (BuildContext context) => new CreateEvent(),
-        '/event' : (BuildContext context) => new EventPage(),
+        '/dash': (BuildContext context) => new DashboardPage(),
+        '/new': (BuildContext context) => new CreateEvent(),
+        '/event': (BuildContext context) => new EventPage(),
       },
     );
   }

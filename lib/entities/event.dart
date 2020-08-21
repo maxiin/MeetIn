@@ -7,6 +7,7 @@ class Event {
   double latitude;
   String address;
   String placeName;
+  String language;
 
   Event(
       {this.id,
@@ -16,6 +17,7 @@ class Event {
       this.latitude,
       this.address,
       this.placeName,
+      this.language,
       this.status});
 }
 

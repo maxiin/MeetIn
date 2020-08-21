@@ -59,8 +59,9 @@ class MainText extends StatelessWidget {
 class ClearText extends StatelessWidget {
   final String text;
   final Color color;
+  final TextAlign align;
 
-  ClearText(this.text, {this.color});
+  ClearText(this.text, {this.color, this.align});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +69,7 @@ class ClearText extends StatelessWidget {
       text,
       style:
           TextStyle(color: color, fontWeight: descWeight, fontSize: textSize),
-      textAlign: TextAlign.left,
+      textAlign: align == null ? TextAlign.start : align,
     );
   }
 }
@@ -77,7 +78,7 @@ class ClearText extends StatelessWidget {
 class DescriptionText extends StatelessWidget {
   final String text;
   final Color color;
-  TextAlign align = TextAlign.start;
+  final TextAlign align;
 
   DescriptionText(this.text, {this.color, this.align});
 
@@ -86,7 +87,7 @@ class DescriptionText extends StatelessWidget {
     return new Text(
       text,
       style: TextStyle(color: color, fontSize: mainTextSize),
-      textAlign: align,
+      textAlign: align == null ? TextAlign.start : align,
     );
   }
 }

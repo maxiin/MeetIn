@@ -1,12 +1,9 @@
 import 'dart:ui';
 
-import 'package:events_app/components/selectImg.dart';
 import 'package:events_app/entities/event.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
-
-import '../repository.dart';
 
 class EventPage extends StatefulWidget {
   EventPage() : super();
@@ -16,45 +13,11 @@ class EventPage extends StatefulWidget {
 }
 
 class EventState extends State<EventPage> {
-  var repo = new Repository();
-  Event _event = new Event();
-
-  EventState() {
-    repo.events.listen((value) {
-      setState(() {
-        _event = value[0];
-      });
-    });
-  }
+  EventState();
 
   @override
   Widget build(BuildContext context) {
-    final header = Stack(
-      children: <Widget>[
-        Container(
-          height: selectImgFullHeight,
-          color: backgroundColor,
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(32),
-                bottomRight: Radius.circular(32)),
-            child: SelectFullImg(),
-          ),
-        ),
-        Align(
-          alignment: Alignment.topRight,
-          child: Container(
-            padding: EdgeInsets.all(8),
-            child: FloatingActionButton(
-              onPressed: () {},
-              child: Image.asset('assets/images/undraw_female_avatar.png'),
-              shape: borderRadius,
-              mini: true,
-            ),
-          ),
-        )
-      ],
-    );
+    final Event event = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       backgroundColor: primaryColor,
@@ -87,46 +50,87 @@ class EventState extends State<EventPage> {
                         topLeft: Radius.circular(16)),
                     color: primaryColor,
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      TitleText(
-                        _event.name != null
-                            ? _event.name +
-                                'lorem ipsum dolor sit amet lorem ipsum dolor sit'
-                            : '',
-                        color: secondaryColor,
-                        align: TextAlign.center,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 32.0),
-                        child: ClearText(
-                            'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet ',
-                            color: secondaryColor),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Column(
-                              children: <Widget>[
-                                Text('data'),
-                                Text('data'),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              color: Colors.amber,
-                              child: Column(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: <Widget>[
+                        TitleText(
+                          event.name,
+                          color: clearColor,
+                          align: TextAlign.center,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 16.0, 0, 32.0),
+                          child: ClearText(
+                              'lorem ipsum dolor sit amet lorem ipsum dolor sim dolor sit amet lorem ipsdolor sit amet lorem ipsumipsum dolor sit amet ',
+                              color: clearColor),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Column(
                                 children: <Widget>[
-                                  Text('data'),
-                                  Text('data'),
+                                  TitleText('English', color: clearColor),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.language,
+                                        color: clearColor,
+                                        size: textSize,
+                                      ),
+                                      ClearText(
+                                        ' Language',
+                                        color: clearColor,
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ),
+                              Column(
+                                children: <Widget>[
+                                  TitleText('45km', color: clearColor),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.place,
+                                        color: clearColor,
+                                        size: textSize,
+                                      ),
+                                      ClearText(
+                                        ' Distance',
+                                        color: clearColor,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
-                      )
-                    ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            TitleText('24d 6h 23m 19s', color: clearColor),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.schedule,
+                                  color: clearColor,
+                                  size: textSize,
+                                ),
+                                ClearText(
+                                  ' Countdown',
+                                  color: clearColor,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ]))
