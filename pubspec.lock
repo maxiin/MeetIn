@@ -179,9 +179,11 @@ packages:
   faker:
     dependency: "direct dev"
     description:
-      path: "lib/packages/faker"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: df74673b11a0bd119c04f92c33361afb5a92b64f
+      url: "git://github.com/maxiin/faker.git"
+    source: git
     version: "1.2.1"
   fixnum:
     dependency: transitive

@@ -49,7 +49,8 @@ dependencies:
 dev_dependencies:
   #faker: ^1.2.1
   faker:
-     path: ./lib/packages/faker
+    git:
+      url: git://github.com/maxiin/faker.git
   flutter_test:
     sdk: flutter
 
