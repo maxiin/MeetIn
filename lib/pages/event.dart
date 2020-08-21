@@ -1,11 +1,14 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:events_app/entities/event.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
+import 'package:events_app/utils/maps.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class EventPage extends StatefulWidget {
   EventPage() : super();
@@ -15,48 +18,76 @@ class EventPage extends StatefulWidget {
 }
 
 class EventState extends State<EventPage> {
+  GoogleMapController _controller;
+  Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
+  Completer<GoogleMapController> _mapsCompleter = Completer();
+  Position _position = Position(latitude: 0, longitude: 0);
   EventState();
 
   @override
   Widget build(BuildContext context) {
     final Event event = ModalRoute.of(context).settings.arguments;
 
+    final mapCard = Container(
+      height: cardHeight,
+      child: GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(_position.latitude, _position.longitude),
+          zoom: 14.4746,
+        ),
+        onMapCreated: (GoogleMapController controller) {
+          _controller = controller;
+          final newPosition = new Position(
+              latitude: event.latitude, longitude: event.longitude);
+          _position = newPosition;
+          _controller.animateCamera(CameraUpdate.newLatLng(
+              new LatLng(newPosition.latitude, newPosition.longitude)));
+          _markers[new MarkerId('center')] = new Marker(
+              markerId: new MarkerId("center"),
+              position: LatLng(newPosition.latitude, newPosition.longitude));
+          if (!_mapsCompleter.isCompleted) {
+            _mapsCompleter.complete(controller);
+          }
+        },
+        markers: Set<Marker>.of(_markers.values),
+      ),
+    );
+
+    final infoCard = (Widget value, IconData icon, String label) {
+      return Column(
+        children: <Widget>[
+          value,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                icon,
+                color: clearColor,
+                size: textSize,
+              ),
+              ClearText(
+                ' ' + label,
+                color: clearColor,
+              ),
+            ],
+          ),
+        ],
+      );
+    };
+
+    final infoList = (List<Widget> widgets) {
+      return Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: widgets));
+    };
+
     getDateString() {
       final days = event.date.difference(new DateTime.now()).inDays;
       final hours = event.date.difference(new DateTime.now()).inHours;
       return days.toString() + 'd ' + (hours % 24).toString() + 'h';
-    }
-
-    getDistanceString() async {
-      Position position = await Geolocator()
-          .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      final userLat = position.latitude;
-      final userLng = position.longitude;
-
-      if (event.latitude == null ||
-          event.longitude == null ||
-          userLat == null ||
-          userLng == null) {
-        return '??km';
-      }
-      if ((userLat == event.latitude) && (userLng == event.longitude)) {
-        return '0km';
-      } else {
-        final thisRadius = pi * userLat / 180;
-        final schoolRadius = pi * event.latitude / 180;
-        final dis = userLng - event.longitude;
-        final disRadius = pi * dis / 180;
-        double finalDis = sin(thisRadius) * sin(schoolRadius) +
-            cos(thisRadius) * cos(schoolRadius) * cos(disRadius);
-        if (finalDis > 1) {
-          finalDis = 1;
-        }
-        finalDis = acos(finalDis);
-        finalDis = finalDis * 180 / pi;
-        finalDis = finalDis * 60 * 1.1515;
-        finalDis = finalDis * 1.609344;
-        return finalDis.toStringAsFixed(2) + 'km';
-      }
     }
 
     return Scaffold(
@@ -105,77 +136,26 @@ class EventState extends State<EventPage> {
                               'lorem ipsum dolor sit amet lorem ipsum dolor sim dolor sit amet lorem ipsdolor sit amet lorem ipsumipsum dolor sit amet ',
                               color: clearColor),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  TitleText(event.language, color: clearColor),
-                                  Row(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.language,
-                                        color: clearColor,
-                                        size: textSize,
-                                      ),
-                                      ClearText(
-                                        ' Language',
-                                        color: clearColor,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  FutureBuilder(
-                                      future: getDistanceString(),
-                                      initialData: '',
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot<String> snapshot) {
-                                        return TitleText(snapshot.data,
-                                            color: clearColor);
-                                      }),
-                                  Row(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.place,
-                                        color: clearColor,
-                                        size: textSize,
-                                      ),
-                                      ClearText(
-                                        ' Distance',
-                                        color: clearColor,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            TitleText(getDateString(), color: clearColor),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.schedule,
-                                  color: clearColor,
-                                  size: textSize,
-                                ),
-                                ClearText(
-                                  ' Countdown',
-                                  color: clearColor,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                        infoList([
+                          infoCard(MainText(event.language, color: clearColor),
+                              Icons.language, 'Language'),
+                          infoCard(
+                              FutureBuilder(
+                                  future: getDistanceString(event),
+                                  initialData: '',
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<String> snapshot) {
+                                    return MainText(snapshot.data,
+                                        color: clearColor);
+                                  }),
+                              Icons.place,
+                              'Distance'),
+                        ]),
+                        infoList([
+                          infoCard(MainText(getDateString(), color: clearColor),
+                              Icons.schedule, 'Countdown'),
+                        ]),
+                        mapCard
                       ],
                     ),
                   ),

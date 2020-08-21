@@ -8,6 +8,7 @@ class Event {
   String address;
   String placeName;
   String language;
+  Platforms platform;
 
   Event(
       {this.id,
@@ -18,6 +19,7 @@ class Event {
       this.address,
       this.placeName,
       this.language,
+      this.platform,
       this.status});
 }
 
@@ -25,4 +27,10 @@ enum EventStatus {
   interested,
   going,
   open,
+}
+
+enum Platforms {
+  meet,
+  teams,
+  skype,
 }

@@ -20,9 +20,9 @@ final borderRadius = RoundedRectangleBorder(
 class TitleText extends StatelessWidget {
   final String text;
   Color color = darkOpacityColor;
-  TextAlign align = TextAlign.start;
+  final TextAlign align;
 
-  TitleText(this.text, {this.color, this.align});
+  TitleText(this.text, {this.color, this.align = TextAlign.start});
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +63,10 @@ class ClearText extends StatelessWidget {
   final String text;
   final Color color;
   final TextAlign align;
+  final int lines;
 
-  ClearText(this.text, {this.color, this.align});
+  ClearText(this.text,
+      {this.color, this.align = TextAlign.start, this.lines = 99});
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +74,9 @@ class ClearText extends StatelessWidget {
       text,
       style:
           TextStyle(color: color, fontWeight: descWeight, fontSize: textSize),
-      textAlign: align == null ? TextAlign.start : align,
+      textAlign: align,
       overflow: TextOverflow.ellipsis,
+      maxLines: lines,
     );
   }
 }
