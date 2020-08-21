@@ -35,12 +35,13 @@ class TitleText extends StatelessWidget {
   }
 }
 
-// Bigger and stronger texts but not as important as titles
+/// Bigger and stronger texts but not as important as titles
 class MainText extends StatelessWidget {
   final String text;
   final Color color;
+  final int lines;
 
-  MainText(this.text, {this.color});
+  MainText(this.text, {this.color, this.lines});
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +52,13 @@ class MainText extends StatelessWidget {
         fontWeight: titleWeight,
         fontSize: mainTextSize,
       ),
+      maxLines: lines == null ? 1 : lines,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }
 
-// small and light text for simple info
+/// small and light text for simple info
 class ClearText extends StatelessWidget {
   final String text;
   final Color color;
@@ -70,11 +73,12 @@ class ClearText extends StatelessWidget {
       style:
           TextStyle(color: color, fontWeight: descWeight, fontSize: textSize),
       textAlign: align == null ? TextAlign.start : align,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }
 
-// General text
+/// General text
 class DescriptionText extends StatelessWidget {
   final String text;
   final Color color;
@@ -88,6 +92,7 @@ class DescriptionText extends StatelessWidget {
       text,
       style: TextStyle(color: color, fontSize: mainTextSize),
       textAlign: align == null ? TextAlign.start : align,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

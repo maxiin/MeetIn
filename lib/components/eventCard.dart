@@ -21,12 +21,15 @@ class DailyEvent extends StatelessWidget {
           size: textSize,
           color: clearColor,
         ),
-        SizedBox(width: 8),
-        ClearText(formattedDate(), color: clearColor),
+        ClearText(' ' + formattedDate(), color: clearColor),
       ],
     );
 
-    final title = MainText(event.name, color: clearColor);
+    final title = MainText(
+      event.name,
+      color: clearColor,
+      lines: 4,
+    );
 
     final location = Row(
       children: <Widget>[
@@ -35,8 +38,7 @@ class DailyEvent extends StatelessWidget {
           size: textSize,
           color: clearColor,
         ),
-        SizedBox(width: 8),
-        ClearText(event.placeName, color: clearColor),
+        Flexible(child: ClearText(' ' + event.placeName, color: clearColor)),
       ],
     );
 
@@ -95,11 +97,11 @@ class DailyEvent extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24),
               ),
               onPressed: open,
-              padding: EdgeInsets.only(left: 24, top: 24, bottom: 24),
+              padding: EdgeInsets.all(16),
               color: primaryColor,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[time, title, location, SizedBox(height: 10)],
+                children: <Widget>[time, title, location, SizedBox(height: 12)],
               ),
             ),
           ),
