@@ -128,6 +128,25 @@ class DashboardState extends State<DashboardPage> {
       child: TitleText('Event you are hosting'),
     );
 
+    DateTime fromNow() {
+      final year =
+          random.integer(DateTime.now().year + 1, min: DateTime.now().year);
+      final minMonth = year == DateTime.now().year ? DateTime.now().month : 1;
+      final month = random.integer(13, min: minMonth);
+      final minDay = month == DateTime.now().month ? DateTime.now().day : 1;
+      final day = random.integer(32, min: minDay);
+      return DateTime(
+        year, // year
+        month, // month
+        day, // day
+        random.integer(24), // hour
+        random.integer(60), // minute
+        random.integer(60), // second
+        random.integer(1000), // millisecond
+        random.integer(1000), // microsecond
+      );
+    }
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: ListView(
@@ -146,7 +165,7 @@ class DashboardState extends State<DashboardPage> {
             onPressed: () {
               final event = new Event(
                   id: new Random().nextInt(100),
-                  date: faker.date.dateTime(minYear: 2020, maxYear: 2022),
+                  date: fromNow(),
                   name: faker.conference.name(),
                   latitude: faker.address.lat(),
                   longitude: faker.address.lng(),

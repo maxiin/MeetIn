@@ -20,7 +20,6 @@ class EventState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
     final Event event = ModalRoute.of(context).settings.arguments;
-    print(event);
 
     getDateString() {
       final days = event.date.difference(new DateTime.now()).inDays;
