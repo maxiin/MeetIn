@@ -28,7 +28,7 @@ class DailyEvent extends StatelessWidget {
     final title = MainText(
       event.name,
       color: clearColor,
-      lines: 4,
+      lines: 2,
     );
 
     final location = Row(
@@ -88,10 +88,12 @@ class DailyEvent extends StatelessWidget {
 
     return Container(
       width: cardWidth,
+      height: 170,
       margin: EdgeInsets.only(right: 8, left: 8, top: 8),
       child: Stack(
         children: <Widget>[
           SizedBox(
+            height: 150,
             child: RaisedButton(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24),
@@ -100,13 +102,14 @@ class DailyEvent extends StatelessWidget {
               padding: EdgeInsets.all(16),
               color: primaryColor,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[time, title, location, SizedBox(height: 12)],
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[time, title, location],
               ),
             ),
           ),
           Positioned(
             bottom: 0,
+            right: 0,
             child: attendButton,
           ),
         ],
