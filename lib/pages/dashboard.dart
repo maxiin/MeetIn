@@ -69,6 +69,7 @@ class DashboardState extends State<DashboardPage> {
             }
           }
           return ListView(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 32),
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               children: children);

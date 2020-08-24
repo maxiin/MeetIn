@@ -32,6 +32,7 @@ DateTime fromNow() {
 
 class MyApp extends StatelessWidget {
   var repo = new Repository();
+
   MyApp() {
     for (int i = 0; i < random.integer(10) + 5; i++) {
       final event = new Event(
@@ -52,17 +53,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: primaryMaterialColor,
-      ),
-      home: LoginPage(),
-      routes: <String, WidgetBuilder>{
-        '/login': (BuildContext context) => new LoginPage(),
-        '/dash': (BuildContext context) => new DashboardPage(),
-        '/new': (BuildContext context) => new CreateEvent(),
-        '/event': (BuildContext context) => new EventPage(),
-      },
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: primaryMaterialColor,
+        ),
+        //home: LoginPage(),
+        home: LoginPage());
   }
 }

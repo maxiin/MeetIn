@@ -1,3 +1,4 @@
+import 'package:events_app/pages/navPage.dart';
 import 'package:events_app/services/auth.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
@@ -94,7 +95,7 @@ class LoginState extends State<LoginPage> {
                 ctx: ctx);
             if (res) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DashboardPage()));
+                  MaterialPageRoute(builder: (context) => NavigationPage()));
             }
           }
         },
