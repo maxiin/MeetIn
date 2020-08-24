@@ -8,6 +8,12 @@ class NavigationPage extends StatefulWidget {
   NavigationState createState() => NavigationState();
 }
 
+final List<Widget> pages = [
+  DashboardPage(),
+  DashboardPage(),
+  DashboardPage(),
+];
+
 class NavigationState extends State<NavigationPage> {
   int _currentIndex = 0;
   Widget _currentPage = DashboardPage();
