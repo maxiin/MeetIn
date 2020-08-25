@@ -45,6 +45,8 @@ dependencies:
   flutter_slidable: ^0.5.4
   page_transition: "^1.1.5"
   shimmer: ^1.0.0
+  bloc: ^6.0.2
+  flutter_bloc:
 
 dev_dependencies:
   #faker: ^1.2.1
