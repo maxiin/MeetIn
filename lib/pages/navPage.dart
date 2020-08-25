@@ -1,3 +1,4 @@
+import 'package:events_app/pages/createEvent.dart';
 import 'package:events_app/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 
@@ -8,9 +9,9 @@ class NavigationPage extends StatefulWidget {
   NavigationState createState() => NavigationState();
 }
 
-final List<Widget> pages = [
+final List<Widget> _pages = [
   DashboardPage(),
-  DashboardPage(),
+  CreateEvent(),
   DashboardPage(),
 ];
 
@@ -21,6 +22,7 @@ class NavigationState extends State<NavigationPage> {
   changePage(index) {
     setState(() {
       _currentIndex = index;
+      _currentPage = _pages[index];
     });
   }
 
