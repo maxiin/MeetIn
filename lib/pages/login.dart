@@ -1,4 +1,4 @@
-import 'package:events_app/pages/navPage.dart';
+import 'package:events_app/pages/nav_page.dart';
 import 'package:events_app/services/auth.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';

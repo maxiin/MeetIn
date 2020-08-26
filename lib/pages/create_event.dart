@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:events_app/components/bigButton.dart';
-import 'package:events_app/components/dateCard.dart';
-import 'package:events_app/components/selectImg.dart';
+import 'package:events_app/components/big_button.dart';
+import 'package:events_app/components/date-card.dart';
+import 'package:events_app/components/select-image.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/maps.dart';

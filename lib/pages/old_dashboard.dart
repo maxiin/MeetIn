@@ -5,7 +5,7 @@ import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
-import 'package:events_app/components/bigButton.dart';
+import 'package:events_app/components/big_button.dart';
 import 'package:intl/intl.dart';
 
 final weekdays = List.generate(7, (index) => index)
