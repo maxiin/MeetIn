@@ -32,10 +32,10 @@ class EventRepository implements CommonRepository<Event> {
       Duration(seconds: 1),
       () {
         // Simulate some network exception
-        if (random.boolean()) {
+        /* if (random.boolean()) {
           throw NetworkException();
         }
-
+        */
         final eventList = new List<Event>();
 
         for (int i = 0; i < random.integer(10) + 5; i++) {

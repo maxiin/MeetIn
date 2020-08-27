@@ -9,13 +9,14 @@ part 'navigation_state.dart';
 class BottomNavigationCubit extends Cubit<BottomNavigationState> {
   final EventRepository _eventRepository;
 
-  BottomNavigationCubit(this._eventRepository) : super(NavigationLoading()) {
+  BottomNavigationCubit(this._eventRepository) : super(NavigationLoading(0)) {
     _eventRepository.getMany().then((events) => emit(NavigationEvents(events)));
   }
 
   Future<void> changePage(int index) async {
+    print(index);
     try {
-      emit(NavigationLoading());
+      emit(NavigationLoading(index));
       switch (index) {
         case 0:
           final events = await _eventRepository.getMany();
@@ -28,6 +29,8 @@ class BottomNavigationCubit extends Cubit<BottomNavigationState> {
           emit(NavigationProfile());
           break;
       }
-    } catch (e) {}
+    } catch (e) {
+      emit(NavigationError(index));
+    }
   }
 }
