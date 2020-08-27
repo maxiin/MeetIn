@@ -9,8 +9,6 @@ import 'package:events_app/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'dashboard.dart';
-
 class LoginPage extends StatefulWidget {
   LoginPage() : super();
 
@@ -47,8 +45,6 @@ class LoginState extends State<LoginPage> {
           opacity: 0.2,
           child: SizedBox(
             child: Image.asset('assets/images/undraw_page.png'),
-            /* child: SvgPicture.asset('assets/images/party.svg',
-                alignment: Alignment.topCenter), */
             height: 200,
             width: 1080,
           )),
