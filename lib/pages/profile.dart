@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class DashboardPage extends StatelessWidget {
+class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('Your events');
+    return Text('Your profile');
   }
 }

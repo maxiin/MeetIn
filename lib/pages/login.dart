@@ -1,9 +1,13 @@
+import 'package:events_app/cubit/navigation_cubit.dart';
+import 'package:events_app/pages/event.dart';
 import 'package:events_app/pages/nav_page.dart';
+import 'package:events_app/repositories/event_repository.dart';
 import 'package:events_app/services/auth.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'dashboard.dart';
 
@@ -94,8 +98,13 @@ class LoginState extends State<LoginPage> {
                 _emailController.text, _passwordController.text,
                 ctx: ctx);
             if (res) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NavigationPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                          create: (context) =>
+                              BottomNavigationCubit(EventRepository()),
+                          child: NavigationPage())));
             }
           }
         },
@@ -157,7 +166,7 @@ class LoginState extends State<LoginPage> {
     return Future.delayed(Duration(seconds: 10)).then((context) => {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => DashboardPage()),
+            MaterialPageRoute(builder: (context) => EventPage()),
           )
         });
   }
