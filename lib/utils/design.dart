@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -28,7 +27,7 @@ IconData randomIcon() {
 
 class TitleText extends StatelessWidget {
   final String text;
-  Color color = darkOpacityColor;
+  final Color color;
   final TextAlign align;
 
   TitleText(this.text, {this.color, this.align = TextAlign.start});

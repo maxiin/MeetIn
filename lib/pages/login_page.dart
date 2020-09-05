@@ -1,8 +1,5 @@
 import 'package:events_app/cubit/navigation_cubit.dart';
-import 'package:events_app/pages/event_page.dart';
 import 'package:events_app/pages/nav_page.dart';
-import 'package:events_app/repositories/event_repository.dart';
-import 'package:events_app/services/auth.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
@@ -90,17 +87,12 @@ class LoginState extends State<LoginPage> {
         ),
         onPressed: () async {
           if (form.currentState.validate()) {
-            bool res = await AuthService.login(
-                _emailController.text, _passwordController.text,
-                ctx: ctx);
-            if (res) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => BlocProvider(
-                          create: (context) => BottomNavigationCubit(),
-                          child: NavigationPage())));
-            }
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                        create: (context) => BottomNavigationCubit(),
+                        child: NavigationPage())));
           }
         },
         padding: EdgeInsets.all(12),

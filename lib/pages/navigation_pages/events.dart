@@ -2,15 +2,11 @@ import 'dart:async';
 
 import 'package:events_app/components/event-card.dart';
 import 'package:events_app/cubit/event_cubit.dart';
-import 'package:events_app/entities/event.dart';
 import 'package:events_app/pages/event_page.dart';
-import 'package:events_app/services/event.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../repository.dart';
 
 class EventsPage extends StatefulWidget {
   EventsPage() : super();
@@ -20,7 +16,6 @@ class EventsPage extends StatefulWidget {
 }
 
 class EventsPageState extends State<EventsPage> {
-  var repo = new Repository();
   StreamSubscription _eventListener;
 
   @override

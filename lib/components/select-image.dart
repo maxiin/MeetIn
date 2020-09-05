@@ -46,13 +46,14 @@ class SelectCircleImgState extends State<SelectCircleImg> {
     }
 
     final pickImg = () async {
-      var image = await ImagePicker.pickImage(
+      ImagePicker picker = ImagePicker();
+      PickedFile image = await picker.getImage(
         source: ImageSource.gallery,
       );
-      image = await cropImage(image,
+      File croppedImg = await cropImage(File(image.path),
           defaultAspectRatio: CropAspectRatioPreset.square);
       setState(() {
-        _picture = image;
+        _picture = croppedImg;
       });
     };
     final photoButton = IconButton(
@@ -117,13 +118,14 @@ class SelectFullImgState extends State<SelectFullImg> {
     final img = fullImg;
 
     final pickImg = () async {
-      var image = await ImagePicker.pickImage(
+      ImagePicker picker = ImagePicker();
+      PickedFile image = await picker.getImage(
         source: ImageSource.gallery,
       );
-      image = await cropImage(image,
-          defaultAspectRatio: CropAspectRatioPreset.ratio16x9);
+      File croppedImg = await cropImage(File(image.path),
+          defaultAspectRatio: CropAspectRatioPreset.square);
       setState(() {
-        _picture = image;
+        _picture = croppedImg;
       });
     };
     final photoButton = IconButton(
