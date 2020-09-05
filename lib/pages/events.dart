@@ -35,7 +35,7 @@ class EventsState extends State<EventsPage> {
 
   @override
   Widget build(BuildContext context) {
-    EventService.getMany(ctx: context);
+    //EventService.getMany(ctx: context);
 
     final header = Padding(
       padding: EdgeInsets.all(20),
@@ -54,27 +54,54 @@ class EventsState extends State<EventsPage> {
     );
 
     return Scaffold(
-      backgroundColor: backgroundColor,
-      body: StreamBuilder<List<Event>>(
-        stream: this.repo.events.asBroadcastStream(),
-        builder: (BuildContext context, AsyncSnapshot<List<Event>> events) {
-          List<Widget> children = [header];
-          if (events.data != null && events.data.isNotEmpty) {
-            for (Event event in events.data) {
-              children.add(DailyEvent(
-                  event: event,
-                  open: () {
-                    Navigator.of(context).pushNamed('/event', arguments: event);
-                  }));
-            }
-          }
-          return ListView(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 32),
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              children: children);
-        },
-      ),
-    );
+        backgroundColor: backgroundColor,
+        body: Column(
+          children: [
+            header,
+            SizedBox(
+              height: 64,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      elevation: 2,
+                      shadowColor: secondaryColor,
+                      color: primaryColor,
+                      child: SizedBox(
+                        height: 64,
+                        width: 64,
+                        child: Center(
+                          child: Text(index.toString()),
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+            StreamBuilder<List<Event>>(
+              initialData: [Event.randomEvent(), Event.randomEvent()],
+              stream: this.repo.events.asBroadcastStream(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Event>> events) {
+                List<Widget> children = [];
+                if (events.data != null && events.data.isNotEmpty) {
+                  for (Event event in events.data) {
+                    children.add(DailyEvent(
+                        event: event,
+                        open: () {
+                          Navigator.of(context)
+                              .pushNamed('/event', arguments: event);
+                        }));
+                  }
+                }
+                return ListView(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 32),
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    children: children);
+              },
+            ),
+          ],
+        ));
   }
 }

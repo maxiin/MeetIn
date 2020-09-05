@@ -1,17 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:events_app/entities/event.dart';
-import 'package:events_app/pages/dashboard.dart';
-import 'package:events_app/repositories/event_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'navigation_state.dart';
 
 class BottomNavigationCubit extends Cubit<BottomNavigationState> {
-  final EventRepository _eventRepository;
-
-  BottomNavigationCubit(this._eventRepository) : super(NavigationLoading(0)) {
-    _eventRepository.getMany().then((events) => emit(NavigationEvents(events)));
-  }
+  BottomNavigationCubit() : super(NavigationEvents());
 
   Future<void> changePage(int index) async {
     print(index);
@@ -19,8 +12,7 @@ class BottomNavigationCubit extends Cubit<BottomNavigationState> {
       emit(NavigationLoading(index));
       switch (index) {
         case 0:
-          final events = await _eventRepository.getMany();
-          emit(NavigationEvents(events));
+          emit(NavigationEvents());
           break;
         case 1:
           emit(NavigationDashboard());

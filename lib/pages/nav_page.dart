@@ -1,9 +1,7 @@
 import 'package:events_app/cubit/navigation_cubit.dart';
 import 'package:events_app/pages/dashboard.dart';
-import 'package:events_app/pages/event.dart';
 import 'package:events_app/pages/events.dart';
 import 'package:events_app/pages/profile.dart';
-import 'package:events_app/repositories/event_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +21,7 @@ final List<Widget> pages = [
 class NavigationState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
-    final cubit = BottomNavigationCubit(EventRepository());
+    final cubit = BottomNavigationCubit();
 
     return Scaffold(
         bottomNavigationBar:

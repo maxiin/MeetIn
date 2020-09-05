@@ -98,8 +98,7 @@ class LoginState extends State<LoginPage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => BlocProvider(
-                          create: (context) =>
-                              BottomNavigationCubit(EventRepository()),
+                          create: (context) => BottomNavigationCubit(),
                           child: NavigationPage())));
             }
           }

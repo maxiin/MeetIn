@@ -6,10 +6,6 @@ abstract class BottomNavigationState {
   const BottomNavigationState(this.index);
 }
 
-class NavigationInitial extends BottomNavigationState {
-  NavigationInitial() : super(0);
-}
-
 class NavigationLoading extends BottomNavigationState {
   final index;
   NavigationLoading(this.index) : super(index);
@@ -21,8 +17,7 @@ class NavigationError extends BottomNavigationState {
 }
 
 class NavigationEvents extends BottomNavigationState {
-  final List<Event> events;
-  const NavigationEvents(this.events) : super(0);
+  const NavigationEvents() : super(0);
 }
 
 class NavigationDashboard extends BottomNavigationState {
