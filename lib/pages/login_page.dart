@@ -1,11 +1,13 @@
-import 'package:events_app/pages/navPage.dart';
+import 'package:events_app/cubit/navigation_cubit.dart';
+import 'package:events_app/pages/event_page.dart';
+import 'package:events_app/pages/nav_page.dart';
+import 'package:events_app/repositories/event_repository.dart';
 import 'package:events_app/services/auth.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:events_app/utils/validation.dart';
 import 'package:flutter/material.dart';
-
-import 'dashboard.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage() : super();
@@ -43,8 +45,6 @@ class LoginState extends State<LoginPage> {
           opacity: 0.2,
           child: SizedBox(
             child: Image.asset('assets/images/undraw_page.png'),
-            /* child: SvgPicture.asset('assets/images/party.svg',
-                alignment: Alignment.topCenter), */
             height: 200,
             width: 1080,
           )),
@@ -94,8 +94,12 @@ class LoginState extends State<LoginPage> {
                 _emailController.text, _passwordController.text,
                 ctx: ctx);
             if (res) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NavigationPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                          create: (context) => BottomNavigationCubit(),
+                          child: NavigationPage())));
             }
           }
         },
@@ -157,7 +161,7 @@ class LoginState extends State<LoginPage> {
     return Future.delayed(Duration(seconds: 10)).then((context) => {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => DashboardPage()),
+            MaterialPageRoute(builder: (context) => EventPage()),
           )
         });
   }
