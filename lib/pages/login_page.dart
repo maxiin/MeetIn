@@ -156,13 +156,4 @@ class LoginState extends State<LoginPage> {
       _obscureText = !_obscureText;
     });
   }
-
-  Future login(context) async {
-    return Future.delayed(Duration(seconds: 10)).then((context) => {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => EventPage()),
-          )
-        });
-  }
 }

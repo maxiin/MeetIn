@@ -11,23 +11,22 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class EventPage extends StatefulWidget {
-  EventPage() : super();
+  final Event _event;
+  EventPage(this._event) : super();
 
   @override
-  EventState createState() => EventState();
+  EventPageState createState() => EventPageState();
 }
 
-class EventState extends State<EventPage> {
+class EventPageState extends State<EventPage> {
   GoogleMapController _controller;
   Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
   Completer<GoogleMapController> _mapsCompleter = Completer();
   Position _position = Position(latitude: 0, longitude: 0);
-  EventState();
+  EventPageState();
 
   @override
   Widget build(BuildContext context) {
-    final Event event = ModalRoute.of(context).settings.arguments;
-
     final mapCard = Container(
       height: cardHeight,
       child: GoogleMap(
@@ -39,7 +38,8 @@ class EventState extends State<EventPage> {
         onMapCreated: (GoogleMapController controller) {
           _controller = controller;
           final newPosition = new Position(
-              latitude: event.latitude, longitude: event.longitude);
+              latitude: widget._event.latitude,
+              longitude: widget._event.longitude);
           _position = newPosition;
           _controller.animateCamera(CameraUpdate.newLatLng(
               new LatLng(newPosition.latitude, newPosition.longitude)));
@@ -85,8 +85,8 @@ class EventState extends State<EventPage> {
     };
 
     getDateString() {
-      final days = event.date.difference(new DateTime.now()).inDays;
-      final hours = event.date.difference(new DateTime.now()).inHours;
+      final days = widget._event.date.difference(new DateTime.now()).inDays;
+      final hours = widget._event.date.difference(new DateTime.now()).inHours;
       return days.toString() + 'd ' + (hours % 24).toString() + 'h';
     }
 
@@ -126,7 +126,7 @@ class EventState extends State<EventPage> {
                     child: Column(
                       children: <Widget>[
                         TitleText(
-                          event.name,
+                          widget._event.name,
                           color: clearColor,
                           align: TextAlign.center,
                         ),
@@ -137,11 +137,14 @@ class EventState extends State<EventPage> {
                               color: clearColor),
                         ),
                         infoList([
-                          infoCard(MainText(event.language, color: clearColor),
-                              Icons.language, 'Language'),
+                          infoCard(
+                              MainText(widget._event.language,
+                                  color: clearColor),
+                              Icons.language,
+                              'Language'),
                           infoCard(
                               FutureBuilder(
-                                  future: getDistanceString(event),
+                                  future: getDistanceString(widget._event),
                                   initialData: '',
                                   builder: (BuildContext context,
                                       AsyncSnapshot<String> snapshot) {

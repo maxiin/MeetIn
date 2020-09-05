@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:events_app/components/event-card.dart';
 import 'package:events_app/cubit/event_cubit.dart';
 import 'package:events_app/entities/event.dart';
+import 'package:events_app/pages/event_page.dart';
 import 'package:events_app/services/event.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
@@ -15,10 +16,10 @@ class EventsPage extends StatefulWidget {
   EventsPage() : super();
 
   @override
-  EventsState createState() => EventsState();
+  EventsPageState createState() => EventsPageState();
 }
 
-class EventsState extends State<EventsPage> {
+class EventsPageState extends State<EventsPage> {
   var repo = new Repository();
   StreamSubscription _eventListener;
 
@@ -63,7 +64,8 @@ class EventsState extends State<EventsPage> {
             SizedBox(
                 height: 64,
                 child: ListView.builder(
-                    shrinkWrap: true,
+                    padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                    shrinkWrap: false,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
                       return Card(
@@ -74,7 +76,7 @@ class EventsState extends State<EventsPage> {
                           height: 64,
                           width: 64,
                           child: Center(
-                            child: Text(index.toString()),
+                            child: Icon(randomIcon()),
                           ),
                         ),
                       );
@@ -82,7 +84,6 @@ class EventsState extends State<EventsPage> {
             BlocBuilder<EventCubit, EventState>(
                 cubit: cubit,
                 builder: (BuildContext context, EventState data) {
-                  print('as');
                   switch (data.runtimeType) {
                     case EventInitial:
                       cubit.loadEvents();
@@ -92,15 +93,18 @@ class EventsState extends State<EventsPage> {
                     case EventLoaded:
                       return Expanded(
                         child: ListView.builder(
-                            padding: EdgeInsets.fromLTRB(0, 0, 0, 32),
+                            padding: EdgeInsets.fromLTRB(8, 16, 8, 0),
                             scrollDirection: Axis.vertical,
                             itemCount: data.events.length,
                             itemBuilder: (BuildContext context, int index) {
                               return DailyEvent(
                                   event: data.events[index],
                                   open: () {
-                                    Navigator.of(context).pushNamed('/event',
-                                        arguments: data.events[index]);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                EventPage(data.events[index])));
                                   });
                             }),
                       );

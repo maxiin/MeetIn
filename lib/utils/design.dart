@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'icon_list.dart';
 
 final cardWidth = 170.0;
 final cardHeight = 230.0;
@@ -16,6 +20,11 @@ final descWeight = FontWeight.w300;
 final borderRadius = RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(24),
 );
+
+IconData randomIcon() {
+  return IconData(iconList[Random().nextInt(iconList.length)],
+      fontFamily: 'MaterialIcons');
+}
 
 class TitleText extends StatelessWidget {
   final String text;
