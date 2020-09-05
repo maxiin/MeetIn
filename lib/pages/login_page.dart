@@ -1,5 +1,5 @@
 import 'package:events_app/cubit/navigation_cubit.dart';
-import 'package:events_app/pages/event.dart';
+import 'package:events_app/pages/event_page.dart';
 import 'package:events_app/pages/nav_page.dart';
 import 'package:events_app/repositories/event_repository.dart';
 import 'package:events_app/services/auth.srvc.dart';

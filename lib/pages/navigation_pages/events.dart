@@ -1,13 +1,15 @@
 import 'dart:async';
 
 import 'package:events_app/components/event-card.dart';
+import 'package:events_app/cubit/event_cubit.dart';
 import 'package:events_app/entities/event.dart';
 import 'package:events_app/services/event.srvc.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../repository.dart';
+import '../../repository.dart';
 
 class EventsPage extends StatefulWidget {
   EventsPage() : super();
@@ -35,7 +37,7 @@ class EventsState extends State<EventsPage> {
 
   @override
   Widget build(BuildContext context) {
-    //EventService.getMany(ctx: context);
+    final cubit = EventCubit();
 
     final header = Padding(
       padding: EdgeInsets.all(20),
@@ -59,48 +61,53 @@ class EventsState extends State<EventsPage> {
           children: [
             header,
             SizedBox(
-              height: 64,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      elevation: 2,
-                      shadowColor: secondaryColor,
-                      color: primaryColor,
-                      child: SizedBox(
-                        height: 64,
-                        width: 64,
-                        child: Center(
-                          child: Text(index.toString()),
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-            StreamBuilder<List<Event>>(
-              initialData: [Event.randomEvent(), Event.randomEvent()],
-              stream: this.repo.events.asBroadcastStream(),
-              builder:
-                  (BuildContext context, AsyncSnapshot<List<Event>> events) {
-                List<Widget> children = [];
-                if (events.data != null && events.data.isNotEmpty) {
-                  for (Event event in events.data) {
-                    children.add(DailyEvent(
-                        event: event,
-                        open: () {
-                          Navigator.of(context)
-                              .pushNamed('/event', arguments: event);
-                        }));
-                  }
-                }
-                return ListView(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 32),
-                    scrollDirection: Axis.vertical,
+                height: 64,
+                child: ListView.builder(
                     shrinkWrap: true,
-                    children: children);
-              },
-            ),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        elevation: 2,
+                        shadowColor: secondaryColor,
+                        color: primaryColor,
+                        child: SizedBox(
+                          height: 64,
+                          width: 64,
+                          child: Center(
+                            child: Text(index.toString()),
+                          ),
+                        ),
+                      );
+                    })),
+            BlocBuilder<EventCubit, EventState>(
+                cubit: cubit,
+                builder: (BuildContext context, EventState data) {
+                  print('as');
+                  switch (data.runtimeType) {
+                    case EventInitial:
+                      cubit.loadEvents();
+                      return CircularProgressIndicator();
+                    case EventLoading:
+                      return CircularProgressIndicator();
+                    case EventLoaded:
+                      return Expanded(
+                        child: ListView.builder(
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, 32),
+                            scrollDirection: Axis.vertical,
+                            itemCount: data.events.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return DailyEvent(
+                                  event: data.events[index],
+                                  open: () {
+                                    Navigator.of(context).pushNamed('/event',
+                                        arguments: data.events[index]);
+                                  });
+                            }),
+                      );
+                    default:
+                      return Text('error');
+                  }
+                }),
           ],
         ));
   }

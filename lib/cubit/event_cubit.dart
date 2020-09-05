@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:bloc/bloc.dart';
 import 'package:events_app/entities/event.dart';
 import 'package:events_app/repositories/event_repository.dart';

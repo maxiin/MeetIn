@@ -1,7 +1,8 @@
+import 'package:events_app/cubit/event_cubit.dart';
 import 'package:events_app/cubit/navigation_cubit.dart';
-import 'package:events_app/pages/dashboard.dart';
-import 'package:events_app/pages/events.dart';
-import 'package:events_app/pages/profile.dart';
+import 'package:events_app/pages/navigation_pages/dashboard.dart';
+import 'package:events_app/pages/navigation_pages/events.dart';
+import 'package:events_app/pages/navigation_pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,7 +46,8 @@ class NavigationState extends State<NavigationPage> {
                 case NavigationLoading:
                   return CircularProgressIndicator();
                 case NavigationEvents:
-                  return EventsPage();
+                  return BlocProvider(
+                      create: (context) => EventCubit(), child: EventsPage());
                 case NavigationDashboard:
                   return DashboardPage();
                 case NavigationProfile:
@@ -53,8 +55,6 @@ class NavigationState extends State<NavigationPage> {
                 default:
                   return Text('error');
               }
-            })
-        //body: _currentPage,
-        );
+            }));
   }
 }

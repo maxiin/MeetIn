@@ -2,7 +2,7 @@ part of 'event_cubit.dart';
 
 @immutable
 abstract class EventState {
-  final events;
+  final List<Event> events;
   EventState(this.events);
 }
 
