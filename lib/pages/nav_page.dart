@@ -12,12 +12,6 @@ class NavigationPage extends StatefulWidget {
   NavigationState createState() => NavigationState();
 }
 
-final List<Widget> pages = [
-  DashboardPage(),
-  DashboardPage(),
-  DashboardPage(),
-];
-
 class NavigationState extends State<NavigationPage> {
   @override
   Widget build(BuildContext context) {
