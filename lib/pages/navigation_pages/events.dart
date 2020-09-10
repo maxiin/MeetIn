@@ -110,7 +110,6 @@ class EventsPageState extends State<EventsPage> {
                             return Center(child: CircularProgressIndicator());
                           } else if (index + 1 == _length) {
                             cubit.loadEvents();
-                            print('got to the bottom');
                           }
                           return DailyEvent(
                               event: _events[index],
