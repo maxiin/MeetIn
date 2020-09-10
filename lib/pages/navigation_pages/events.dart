@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:events_app/components/event-card.dart';
 import 'package:events_app/cubit/event_cubit.dart';
+import 'package:events_app/entities/event.dart';
 import 'package:events_app/pages/event_page.dart';
 import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
@@ -17,6 +18,7 @@ class EventsPage extends StatefulWidget {
 
 class EventsPageState extends State<EventsPage> {
   StreamSubscription _eventListener;
+  final List<Event> _events = new List();
 
   @override
   void initState() {
@@ -79,33 +81,44 @@ class EventsPageState extends State<EventsPage> {
             BlocBuilder<EventCubit, EventState>(
                 cubit: cubit,
                 builder: (BuildContext context, EventState data) {
+                  if (data.events != null && data.events.length > 0) {
+                    _events.addAll(data.events);
+                  }
+
                   switch (data.runtimeType) {
                     case EventInitial:
                       cubit.loadEvents();
-                      return CircularProgressIndicator();
-                    case EventLoading:
-                      return CircularProgressIndicator();
+                      break;
                     case EventLoaded:
-                      return Expanded(
-                        child: ListView.builder(
-                            padding: EdgeInsets.fromLTRB(8, 16, 8, 0),
-                            scrollDirection: Axis.vertical,
-                            itemCount: data.events.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return DailyEvent(
-                                  event: data.events[index],
-                                  open: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                EventPage(data.events[index])));
-                                  });
-                            }),
-                      );
+                      _events.addAll(data.events);
+                      break;
                     default:
                       return Text('error');
                   }
+
+                  final _length = _events.length > 0
+                      ? _events.length
+                      : 1; // If no events, show only the loading
+                  return Expanded(
+                    child: ListView.builder(
+                        padding: EdgeInsets.fromLTRB(8, 16, 8, 0),
+                        scrollDirection: Axis.vertical,
+                        itemCount: _length,
+                        itemBuilder: (BuildContext context, int index) {
+                          if (data.events.length == 0 && index + 1 == _length) {
+                            return CircularProgressIndicator();
+                          }
+                          return DailyEvent(
+                              event: _events[index],
+                              open: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            EventPage(_events[index])));
+                              });
+                        }),
+                  );
                 }),
           ],
         ));
