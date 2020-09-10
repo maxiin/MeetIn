@@ -9,6 +9,7 @@ class EventCubit extends Cubit<EventState> {
   EventCubit() : super(EventInitial());
 
   Future<void> loadEvents() async {
+    emit(EventLoading());
     final events = await EventRepository().getMany();
     emit(EventLoaded(events));
   }

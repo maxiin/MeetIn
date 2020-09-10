@@ -87,13 +87,12 @@ class EventsPageState extends State<EventsPage> {
 
                   switch (data.runtimeType) {
                     case EventInitial:
+                      _events.clear();
                       cubit.loadEvents();
                       break;
                     case EventLoaded:
                       _events.addAll(data.events);
                       break;
-                    default:
-                      return Text('error');
                   }
 
                   final _length = _events.length > 0
@@ -101,12 +100,17 @@ class EventsPageState extends State<EventsPage> {
                       : 1; // If no events, show only the loading
                   return Expanded(
                     child: ListView.builder(
-                        padding: EdgeInsets.fromLTRB(8, 16, 8, 0),
+                        padding: EdgeInsets.fromLTRB(8, 16, 8, 8),
                         scrollDirection: Axis.vertical,
                         itemCount: _length,
                         itemBuilder: (BuildContext context, int index) {
+                          print(data.runtimeType);
+                          print(data.events.length);
                           if (data.events.length == 0 && index + 1 == _length) {
-                            return CircularProgressIndicator();
+                            return Center(child: CircularProgressIndicator());
+                          } else if (index + 1 == _length) {
+                            cubit.loadEvents();
+                            print('got to the bottom');
                           }
                           return DailyEvent(
                               event: _events[index],

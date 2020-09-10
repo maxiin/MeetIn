@@ -28,7 +28,7 @@ class EventRepository implements CommonRepository<Event> {
   Future<List<Event>> getMany() {
     // Simulate network delay
     return Future.delayed(
-      Duration(seconds: 1),
+      Duration(seconds: 5),
       () {
         // Simulate some network exception
         /* if (random.boolean()) {
