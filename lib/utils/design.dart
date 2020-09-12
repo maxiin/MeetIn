@@ -1,9 +1,10 @@
 import 'dart:math';
 
+import 'package:events_app/utils/debugValues/category_list.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
-import 'icon_list.dart';
+import 'debugValues/icon_list.dart';
 
 final cardWidth = 170.0;
 final cardHeight = 230.0;
@@ -23,6 +24,10 @@ final borderRadius = RoundedRectangleBorder(
 IconData randomIcon() {
   return IconData(iconList[Random().nextInt(iconList.length)],
       fontFamily: 'MaterialIcons');
+}
+
+String randomCategory() {
+  return categoryList[Random().nextInt(categoryList.length)];
 }
 
 class TitleText extends StatelessWidget {

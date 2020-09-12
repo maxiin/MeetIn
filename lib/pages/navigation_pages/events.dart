@@ -8,6 +8,7 @@ import 'package:events_app/utils/colors.dart';
 import 'package:events_app/utils/design.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:faker/faker.dart';
 
 class EventsPage extends StatefulWidget {
   EventsPage() : super();
@@ -59,21 +60,34 @@ class EventsPageState extends State<EventsPage> {
           children: [
             header,
             SizedBox(
-                height: 64,
+                height: 88,
                 child: ListView.builder(
-                    padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+                    padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
                     shrinkWrap: false,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        elevation: 2,
-                        shadowColor: secondaryColor,
-                        color: primaryColor,
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
                         child: SizedBox(
                           height: 64,
                           width: 64,
-                          child: Center(
-                            child: Icon(randomIcon()),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 64,
+                                child: Card(
+                                  elevation: 2,
+                                  shadowColor: secondaryColor,
+                                  color: primaryColor,
+                                  child: Center(
+                                    child: Icon(randomIcon()),
+                                  ),
+                                ),
+                              ),
+                              Text(randomCategory(),
+                                  overflow: TextOverflow.ellipsis)
+                            ],
                           ),
                         ),
                       );
@@ -106,8 +120,10 @@ class EventsPageState extends State<EventsPage> {
                         itemBuilder: (BuildContext context, int index) {
                           print(data.runtimeType);
                           print(data.events.length);
+                          // data was blank = loading
                           if (data.events.length == 0 && index + 1 == _length) {
                             return Center(child: CircularProgressIndicator());
+                            // last item = load more
                           } else if (index + 1 == _length) {
                             cubit.loadEvents();
                           }
